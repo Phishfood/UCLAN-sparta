@@ -1,0 +1,54 @@
+﻿Build started 13/11/2014 16:15:59.
+     1>Project "C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Dissertation Project\Dissertation Project.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /FAs /Fa"Debug\\" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp MapSquare.cpp Scene.cpp
+         Scene.cpp
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\scene.cpp(69): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\scene.cpp(71): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\scene.cpp(74): warning C4244: 'argument' : conversion from 'int' to 'FLOAT', possible loss of data
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\scene.cpp(301): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\scene.cpp(303): warning C4018: '<' : signed/unsigned mismatch
+         MapSquare.cpp
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\mapsquare.cpp(29): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\mapsquare.cpp(31): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\mapsquare.cpp(69): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\mapsquare.cpp(98): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\visual studio 2012\projects\dissertation project\dissertation project\mapsquare.cpp(100): warning C4018: '<' : signed/unsigned mismatch
+         Main.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Debug\Dissertation Project.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Dissertation Project\Import" winmm.lib d3d10.lib d3dx10.lib d3dx9.lib dxguid.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Debug\Dissertation Project.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Debug\Dissertation Project.lib" /MACHINE:X86 Debug\Camera.obj
+         Debug\Colours.obj
+         Debug\CTimer.obj
+         Debug\Geometry.obj
+         Debug\GeometryManager.obj
+         Debug\ImportOBJ.obj
+         Debug\CImportXFile.obj
+         Debug\CFatalException.obj
+         Debug\MSDefines.obj
+         Debug\Utility.obj
+         Debug\BaseMath.obj
+         Debug\CMatrix2x2.obj
+         Debug\CMatrix3x3.obj
+         Debug\CMatrix4x4.obj
+         Debug\CQuaternion.obj
+         Debug\CQuatTransform.obj
+         Debug\CVector2.obj
+         Debug\CVector3.obj
+         Debug\CVector4.obj
+         Debug\MathIO.obj
+         Debug\Main.obj
+         Debug\Input.obj
+         Debug\Light.obj
+         Debug\MapSquare.obj
+         Debug\Model.obj
+         Debug\RenderObject.obj
+         Debug\Scene.obj
+         Debug\Texture.obj
+         Debug\TextureManager.obj
+         Dissertation Project.vcxproj -> C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Debug\Dissertation Project.exe
+     1>Done Building Project "C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Dissertation Project\Dissertation Project.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.15

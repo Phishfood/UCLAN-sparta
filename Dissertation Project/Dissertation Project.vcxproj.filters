@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Camera.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimer.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Modified Code</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderObject.cpp">
+      <Filter>Modified Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Colours.cpp">
+      <Filter>Created Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Created Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Created Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Created Code</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Created Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Import\CImportXFile.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Common\CFatalException.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Common\MSDefines.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Common\Utility.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\BaseMath.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\CMatrix2x2.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\CMatrix3x3.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\CMatrix4x4.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\CQuaternion.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\CQuatTransform.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\CVector2.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\CVector3.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\CVector4.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Import\Math\MathIO.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Created Code</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryManager.cpp">
+      <Filter>Created Code</Filter>
+    </ClCompile>
+    <ClCompile Include="ImportOBJ.cpp">
+      <Filter>Created Code</Filter>
+    </ClCompile>
+    <ClCompile Include="MapSquare.cpp">
+      <Filter>Created Code</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Camera.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimer.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Modified Code</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderObject.h">
+      <Filter>Modified Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Colours.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Colour.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\CImportXFile.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\MeshData.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\rmxfguid.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\rmxftmpl.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Common\CFatalException.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Common\Error.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Common\GenDefines.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Common\MSDefines.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Common\Utility.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\BaseMath.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\CMatrix2x2.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\CMatrix3x3.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\CMatrix4x4.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\CQuaternion.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\CQuatTransform.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\CVector2.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\CVector3.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\CVector4.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\MathDX.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Import\Math\MathIO.h">
+      <Filter>External Code</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryManager.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="ImportOBJ.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+    <ClInclude Include="MapSquare.h">
+      <Filter>Created Code</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="External Code">
+      <UniqueIdentifier>{fd31503f-31b2-4237-9fa1-a28e3ac96a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modified Code">
+      <UniqueIdentifier>{990736b0-6685-4c12-bdfe-5764c1ceaae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Created Code">
+      <UniqueIdentifier>{4d4f1619-b4d4-4e41-804d-997af402d629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other files">
+      <UniqueIdentifier>{a98e225e-20f4-4d64-a2d8-3b0e5f90c533}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bob.txt">
+      <Filter>Other files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="GraphicsAssign1.fx">
+      <Filter>Other files</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
