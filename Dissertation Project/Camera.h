@@ -126,6 +126,8 @@ public:
 	// Control the camera's position and rotation using keys provided
 	void Control( float frameTime, EKeyCode turnUp, EKeyCode turnDown, EKeyCode turnLeft, EKeyCode turnRight,  
 	              EKeyCode moveForward, EKeyCode moveBackward, EKeyCode moveLeft, EKeyCode moveRight);
+
+	bool PixelFromWorldPt( D3DXVECTOR2* Pixel, D3DXVECTOR3 world);
 };
 
 

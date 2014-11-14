@@ -105,3 +105,23 @@ void CCamera::Control( float frameTime, EKeyCode turnUp, EKeyCode turnDown, EKey
 		m_Position.z -= m_WorldMatrix._33 * MoveSpeed * frameTime;
 	}
 }
+
+
+bool CCamera::PixelFromWorldPt( D3DXVECTOR2* pixel, D3DXVECTOR3 world)
+{
+	D3DXVECTOR4 WorldPick = D3DXVECTOR4( world, 1.0f);
+	D3DXVec4Transform(&WorldPick, &WorldPick, &m_ViewProjMatrix);
+	
+	if( WorldPick.w >= 0 )
+	{
+		WorldPick.x /= WorldPick.w;
+		WorldPick.y /= WorldPick.w;
+
+		pixel->x = (WorldPick.x + 1) * mViewportWidth / 2;
+		pixel->y = (1 - WorldPick.y) * mViewportHeight / 2; 
+
+		return true;
+	}
+
+	return false;
+}

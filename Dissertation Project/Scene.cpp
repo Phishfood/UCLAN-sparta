@@ -328,16 +328,19 @@ void CScene::RenderScene()
 
 	if( mb_showWallIM )
 	{
-
-		for(int i = 0; i < mi_mapHeight; i++)
+		if( md_Font )
 		{
-			for(int j = 0; j < mi_mapWidth; j++)
+			D3DXVECTOR2* pixel = new D3DXVECTOR2;
+			for(int i = 0; i < mi_numSquares; i++)
 			{
-					FontRect.top = i*20;
-					FontRect.left = j*20;
-					char temp[5];
-					_itoa_s( mc_map->GetWallI(j,i), temp, 10 );
-					if( md_Font ) md_Font->DrawTextA( 0, temp , -1, &FontRect, DT_NOCLIP, FontColour );
+				
+				D3DXVECTOR3 world = D3DXVECTOR3(md_mapMatrix[i]._41, md_mapMatrix[i]._42, md_mapMatrix[i]._43);
+				Camera->PixelFromWorldPt(pixel, world);
+				FontRect.top = pixel->y;
+				FontRect.left = pixel->x;
+				char temp[5];
+				_itoa_s( mc_map->GetWallI(i/mi_mapWidth,i%mi_mapWidth), temp, 10 );
+				md_Font->DrawTextA( 0, temp , -1, &FontRect, DT_NOCLIP, FontColour );
 			}
 		}
 
