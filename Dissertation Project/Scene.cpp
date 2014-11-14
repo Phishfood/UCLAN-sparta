@@ -66,41 +66,35 @@ bool CScene::InitScene()
 	mp_mapModel = new CModel( D3DXVECTOR3(0.0f,0.0f,0.0f), D3DXVECTOR3(0.0f,0.0f,0.0f), 0.1f );
 	mp_mapModel->Load( "Cube.x", mTechniques[0], false );
 
-	for (int i = 0; i < mi_mapWidth; i++)
+	for (int y = 0; y < mi_mapWidth; y++)
 	{
-		for (int j = 0; j < mi_mapHeight; j++)
+		for (int x = 0; x < mi_mapHeight; x++)
 		{
 
-			mp_mapModel->SetPosition( D3DXVECTOR3(i,0.0f,j) );
+			mp_mapModel->SetPosition( D3DXVECTOR3(x,0.0f,y) );
 			mp_mapModel->UpdateMatrix();
 			md_mapMatrix[mi_numSquares] = mp_mapModel->GetWorldMatrix();
 
-			switch( mc_map->GetCost(i,j) )
+			//colour the squares based on their type
+			switch( mc_map->GetCost(x,y) )
 			{
-				case 0:
-					md_mapColours[mi_numSquares] =  D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+				case 0: //wall 
+					md_mapColours[mi_numSquares] =  D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //black
 					break;
-				case 1:
-					md_mapColours[mi_numSquares] =  D3DXVECTOR3( 1.0f, 1.0f, 1.0f );
+				case 1: //open
+					md_mapColours[mi_numSquares] =  D3DXVECTOR3( 1.0f, 1.0f, 1.0f ); //white
 					break;
-				case 2:
-					md_mapColours[mi_numSquares] =  D3DXVECTOR3( 1.0f, 0.0f, 0.0f );
+				case 2: //player 1
+					md_mapColours[mi_numSquares] =  D3DXVECTOR3( 1.0f, 0.0f, 0.0f ); //red 
 					break;
-				case 3:
-					md_mapColours[mi_numSquares] =  D3DXVECTOR3( 0.0f, 1.0f, 0.0f );
+				case 3://player 2
+					md_mapColours[mi_numSquares] =  D3DXVECTOR3( 0.0f, 1.0f, 0.0f );//green
 			}
 
 			mi_numSquares++;
 			
 		}
 	}
-
-	//Create the mirror as object 0, makes life easier. 
-	/*mpObjects[0] = new CRenderObject("Mirror.x", D3DXVECTOR3(-20, 30, 0), D3DXVECTOR3(0.2f, 0.2f, 0.3f), mTechniquesMirror[18], mTechniquesMirror[19], NULL, NULL, false, false, false);
-	mpObjects[0]->GetModel()->SetRotation(D3DXVECTOR3(1, 2, 0));
-	mpObjects[0]->GetModel()->UpdateMatrix();
-	miNumObjects++;*/
-
 	return true;
 }
 
@@ -341,7 +335,7 @@ void CScene::RenderScene()
 			{
 					FontRect.top = i*20;
 					FontRect.left = j*20;
-					char temp[3];
+					char temp[5];
 					_itoa_s( mc_map->GetWallI(j,i), temp, 10 );
 					if( md_Font ) md_Font->DrawTextA( 0, temp , -1, &FontRect, DT_NOCLIP, FontColour );
 			}
@@ -356,6 +350,7 @@ void CScene::RenderScene()
 	SwapChain->Present( 0, 0 );
 }
 
+// No longer needed - delete?
 void CScene::RenderMirrors()
 {
 	

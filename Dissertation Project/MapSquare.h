@@ -8,6 +8,16 @@
 #include <iostream>
 #include <fstream>
 
+#include <assert.h>
+
+/* ***********************************************************************
+* This struct will hold all the influence maps needed for the AI. 
+* Turrets will be built in areas of high path and wall influence.
+* Factories will be built in areas of low path influence and ignore
+* wall influence. 
+* The turret influence values will be used to score the AI algorithms.
+*************************************************************************/
+
 struct MapData
 {
 	INT32 cost;
@@ -15,8 +25,11 @@ struct MapData
 	INT32 lightTurretInfluence;
 	INT32 mediumTurretInfluence;
 	INT32 heavyTurretInfluence;
+	INT32 pathInfluence;
 };
 
+
+// Lightweight struct to store the path
 struct PathNode
 {
 	UINT32 x;
@@ -25,12 +38,16 @@ struct PathNode
 
 class MapSquare
 {
-public:
-private:
-	std::vector< std::vector<MapData*> > mv_nodes;
+public:   //variables
+private:  //varaibles
+	MapData* mv_nodes[MAX_MAP_SIZE][MAX_MAP_SIZE];
 	UINT32 mi_mapHeight;
 	UINT32 mi_mapWidth;
-public:
+
+	MapData* mp_memStart;
+	MapData* mp_memNext;
+
+public: //methods
 	MapSquare(std::string fileName);
 	~MapSquare(void);
 
@@ -51,10 +68,14 @@ public:
 	//INT32 GetCost(){ return cost;  }
 	//void SetCost(INT32 newCost){ cost = newCost; }
 	
-private:
+private: //methods
 	bool LoadMap(std::string fileName);
 
-	INT32 ManhattanDistance(int x1, int y1, int x2, int y2);
+	bool LoadXMLMap(std::string fileName);
+
+	bool LoadTextMap(std::string fileName);
+
+	INT32 ManhattanDistance(INT32 x1, INT32 y1, INT32 x2, INT32 y2);
 
 	void CalcWallInfluence();
 

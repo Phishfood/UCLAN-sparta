@@ -1,5 +1,6 @@
 #pragma once
 
+//External includes
 #include <windows.h>
 #include <d3d10.h>
 #include <d3dx10.h>
@@ -9,12 +10,13 @@
 #include <fstream>
 #include "resource.h"
 
-#include "Defines.h" // General definitions shared by all source files
-#include "Model.h"   // Model class - encapsulates working with vertex/index data and world matrix
-#include "Camera.h"  // Camera class - encapsulates the camera's view and projection matrix
-#include "CTimer.h"  // Timer class - not DirectX
-#include "Input.h"   // Input functions - not DirectX
-#include "MapSquare.h"
+//Local includes
+#include "Defines.h"    // General definitions shared by all source files
+#include "Model.h"      // Model class - encapsulates working with vertex/index data and world matrix
+#include "Camera.h"     // Camera class - encapsulates the camera's view and projection matrix
+#include "CTimer.h"     // Timer class - not DirectX
+#include "Input.h"      // Input functions - not DirectX
+#include "MapSquare.h"  // Storage for base map data and influence maps
 
 #include "Light.h"			// Light class.
 #include "RenderObject.h"	// Render class.
@@ -31,13 +33,18 @@ private:
 	INT32 mi_numSquares;
 	CModel* mp_mapModel;
 	
-
+	// Text rendering
 	ID3DX10Font* md_Font;
 	D3DX10_FONT_DESC FontDesc;
 	RECT FontRect;
 	D3DXCOLOR FontColour;
 
-	bool mb_showWallIM;
+	// Display options
+	bool mb_showWallIM;    // Toggleable to show the influence of the walls for each square.
+	bool mb_showHTIM;      // Heavy turrets
+	bool mb_showMTIM;      // Medium turrets
+	bool mb_showLTIM;      // Light turrets
+	bool mb_showPathIM;    // Path
 
 	// DX Device pointer
 	ID3D10Device* mpd3dDevice;

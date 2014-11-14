@@ -39,7 +39,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation Project\Dissertation Project\Import;C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation Project\Dissertation Project\Import\Common;C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation Project\Dissertation Project\Import\Math;C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Dissertation Project\Import\Common;C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Dissertation Project\Import;C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Dissertation Project\Import\Math;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation Project\Dissertation Project\Import;C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation Project\Dissertation Project\Import\Common;C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation Project\Dissertation Project\Import\Math;C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Dissertation Project\Import\Common;C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Dissertation Project\Import\Math;C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Dissertation Project\Import;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -101,6 +101,10 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TinyXML\tinyxml2.cpp" />
+    <ClCompile Include="TinyXML\xmltest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -140,6 +144,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TinyXML\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="bob.txt">

@@ -1,6 +1,5 @@
 #include "MapSquare.h"
 
-const int start_size = 200;
 
 MapSquare::MapSquare(std::string fileName)
 {
@@ -21,7 +20,7 @@ MapSquare::MapSquare(std::string fileName)
 
 MapSquare::~MapSquare(void)
 {
-
+	free(mp_memStart);
 }
 
 void MapSquare::FillWallInfluence( INT32 range, INT32 x, INT32 y )
@@ -30,7 +29,12 @@ void MapSquare::FillWallInfluence( INT32 range, INT32 x, INT32 y )
 	{
 		for(int j = 0; j < mi_mapWidth; j++)
 		{
-			mv_nodes[i][j]->wallInfluence += max( 0, WALL_INFLUENCE_RANGE - ManhattanDistance( j, i, x, y ) );
+			// max alias decided to break horribly?
+			int dist = ManhattanDistance( j, i, x, y );
+			if( dist < 5 )
+			{
+				mv_nodes[i][j]->wallInfluence += 5 - dist;
+			}
 		}
 	}
 }
@@ -61,22 +65,29 @@ bool MapSquare::LoadMap(std::string mapName)
 		mi_mapHeight = i;
 		mi_mapWidth = buffer[0].length();
 
+		// allocate enough memory to hold all the nodes
+		// this will crash and burn if the map isn't square.
+		mp_memStart = (MapData*) malloc( sizeof(MapData) * mi_mapHeight * mi_mapWidth );
+		mp_memNext = mp_memStart;
 
 		//convert to int - probably a neater way to do this
 		for (UINT32 y = 0; y < mi_mapHeight; y++)
 		{
-			std::vector<MapData*> row;
-			for (int x = 0; x < buffer[y].length(); x++)
+			for (int x = 0; x < mi_mapWidth; x++)
 			{
-				MapData* temp =  new MapData;
-				temp->cost = buffer[y][x] - 48;
-				temp->heavyTurretInfluence = 0;
-				temp->lightTurretInfluence = 0;
-				temp->mediumTurretInfluence = 0;
-				temp->wallInfluence = 0;
-				row.push_back( temp );
+				//add pointer to the array
+				mv_nodes[x][y] = mp_memNext;
+
+				//initialise - not strictly needed, but safer. 
+				mp_memNext->cost = buffer[y][x] - 48;
+				mp_memNext->heavyTurretInfluence = 0;
+				mp_memNext->lightTurretInfluence = 0;
+				mp_memNext->mediumTurretInfluence = 0;
+				mp_memNext->wallInfluence = 0;
+				mp_memNext->pathInfluence = 0;
+
+				mp_memNext++;
 			}
-			mv_nodes.push_back(row);
 		}
 
 
@@ -86,7 +97,7 @@ bool MapSquare::LoadMap(std::string mapName)
 	return false;
 }
 
-INT32 MapSquare::ManhattanDistance(int x1, int y1, int x2, int y2)
+INT32 MapSquare::ManhattanDistance(INT32 x1, INT32 y1, INT32 x2, INT32 y2)
 {
         int x = abs(x1 - x2);
         int y = abs(y1 - y2);
@@ -99,7 +110,7 @@ void MapSquare::CalcWallInfluence()
 	{
 		for(int j = 0; j < mi_mapWidth; j++)
 		{
-			if( mv_nodes[i][j]->cost == 0 )
+			if( mv_nodes[j][i]->cost == 0 )
 			{
 				FillWallInfluence(WALL_INFLUENCE_RANGE, j, i);
 			}
