@@ -10,7 +10,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Created Code</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="MapSquare.cpp">
       <Filter>Created Code</Filter>
     </ClCompile>
@@ -91,6 +90,15 @@
     </ClCompile>
     <ClCompile Include="TinyXML\xmltest.cpp">
       <Filter>External Code\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="AIInterface.cpp">
+      <Filter>Created Code\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AIRandom.cpp">
+      <Filter>Created Code\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Created Code\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +216,12 @@
     <ClInclude Include="RenderObject.h">
       <Filter>Created Code</Filter>
     </ClInclude>
+    <ClInclude Include="AIInterface.h">
+      <Filter>Created Code\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AIRandom.h">
+      <Filter>Created Code\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External Code">
@@ -236,6 +250,9 @@
     </Filter>
     <Filter Include="Created Code\Textures">
       <UniqueIdentifier>{6b474a8f-ee59-46db-a590-715bbb649f1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Created Code\AI">
+      <UniqueIdentifier>{434a8aa3-4f13-44d0-a22c-7772fe90687e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

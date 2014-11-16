@@ -40,11 +40,15 @@ private:
 	D3DXCOLOR FontColour;
 
 	// Display options
+	bool mb_showCost;
 	bool mb_showWallIM;    // Toggleable to show the influence of the walls for each square.
+	bool mb_showPathIM;    // Path
+	bool mb_showBaseIM;
+	bool mb_showBase2IM;
 	bool mb_showHTIM;      // Heavy turrets
 	bool mb_showMTIM;      // Medium turrets
 	bool mb_showLTIM;      // Light turrets
-	bool mb_showPathIM;    // Path
+	
 
 	// DX Device pointer
 	ID3D10Device* mpd3dDevice;
@@ -146,6 +150,10 @@ private:
 
 	inline void DrawObject(int i, bool mirror = false);
 	inline void DrawAllObjects(bool mirror);
+
+	void DisplayMapText(INT32 offset);
+
+	void DisplayText( char text[], UINT32 line );
 
 public:
 	CScene(void);

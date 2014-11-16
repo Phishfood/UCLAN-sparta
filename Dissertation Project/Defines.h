@@ -13,8 +13,10 @@
 #include <d3dx10.h>
 #include <stdint.h>
 
-const UINT32 WALL_INFLUENCE_RANGE = 5;
-const UINT32 MAX_MAP_SIZE = 256;
+const INT32 MAX_MAP_SIZE = 256;
+
+const INT32 WALL_INFLUENCE_RANGE = 5;
+const INT32 BASE_INFLUENCE_RANGE = 15;
 
 //-----------------------------------------------------------------------------
 // Helper functions and macros
@@ -28,11 +30,23 @@ inline float ToRadians( float deg ) { return deg * (float)D3DX_PI / 180.0f; }
 inline float ToDegrees( float rad ) { return rad * 180.0f / (float)D3DX_PI; }
 inline float square (float x) { return x * x; }
 
-#define MAX(a,b) ((a) < (b) ? (a) : (b))
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 #define SQUARE(x) (x*x)
 #define CUBE(x) (x*x*x)
+
+enum MDOffset
+{
+	COST_OFFSET,
+	WALL_OFFSET,
+	PATH_OFFSET,
+	BASE_OFFSET,
+	BASE2_OFFSET,
+	LIGHT_OFFSET,
+	MEDIUM_OFFSET,
+	HEAVY_OFFSET
+};
 
 //helps keep track of all the techniques - rather than just using the index alone.
 

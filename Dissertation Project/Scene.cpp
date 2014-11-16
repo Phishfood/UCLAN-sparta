@@ -18,6 +18,12 @@ CScene::CScene(void)
 	FontColour = D3DXCOLOR( 1.0f, 0.0f, 0.0f, 1.0f );
 
 	mb_showWallIM = false;
+	mb_showWallIM = false;
+	mb_showPathIM = false;
+	mb_showBaseIM = false;
+	mb_showHTIM = false;
+	mb_showLTIM = false;
+	mb_showMTIM = false;
 }
 
 CScene::~CScene(void)
@@ -66,9 +72,9 @@ bool CScene::InitScene()
 	mp_mapModel = new CModel( D3DXVECTOR3(0.0f,0.0f,0.0f), D3DXVECTOR3(0.0f,0.0f,0.0f), 0.1f );
 	mp_mapModel->Load( "Cube.x", mTechniques[0], false );
 
-	for (int y = 0; y < mi_mapWidth; y++)
+	for (int y = 0; y < mi_mapHeight; y++)
 	{
-		for (int x = 0; x < mi_mapHeight; x++)
+		for (int x = 0; x < mi_mapWidth; x++)
 		{
 
 			mp_mapModel->SetPosition( D3DXVECTOR3(x,0.0f,y) );
@@ -153,9 +159,100 @@ void CScene::UpdateScene( float frameTime )
 		DestroyWindow( HWnd );
 	}
 
-	if (KeyHit( Key_L ) )
+	if (KeyHit( Key_F1 ) )
 	{
+		mb_showCost = !mb_showCost;
+		mb_showWallIM = false;
+		mb_showPathIM = false;
+		mb_showBaseIM = false;
+		mb_showBase2IM = false;
+		mb_showHTIM = false;
+		mb_showLTIM = false;
+		mb_showMTIM = false;
+	}
+
+	if (KeyHit( Key_F2 ) )
+	{
+		mb_showCost = false;
 		mb_showWallIM = !mb_showWallIM;
+		mb_showPathIM = false;
+		mb_showBaseIM = false;
+		mb_showBase2IM = false;
+		mb_showHTIM = false;
+		mb_showLTIM = false;
+		mb_showMTIM = false;
+	}
+
+	if (KeyHit( Key_F3 ) )
+	{
+		mb_showCost = false;
+		mb_showWallIM = false;
+		mb_showPathIM = !mb_showPathIM;
+		mb_showBaseIM = false;
+		mb_showBase2IM = false;
+		mb_showHTIM = false;
+		mb_showLTIM = false;
+		mb_showMTIM = false;
+	}
+
+	if (KeyHit( Key_F4 ) )
+	{
+		mb_showCost = false;
+		mb_showWallIM = false;
+		mb_showPathIM = false;
+		mb_showBaseIM = !mb_showBaseIM;
+		mb_showBase2IM = false;
+		mb_showHTIM = false;
+		mb_showLTIM = false;
+		mb_showMTIM = false;
+	}
+
+	if (KeyHit( Key_F5 ) )
+	{
+		mb_showCost = false;
+		mb_showWallIM = false;
+		mb_showPathIM = false;
+		mb_showBaseIM = false;
+		mb_showBase2IM = !mb_showBase2IM;
+		mb_showHTIM = false;
+		mb_showLTIM = false;
+		mb_showMTIM = false;
+	}
+
+	if (KeyHit( Key_F6 ) )
+	{
+		mb_showCost = false;
+		mb_showWallIM = false;
+		mb_showPathIM = false;
+		mb_showBaseIM = false;
+		mb_showBase2IM = false;
+		mb_showHTIM = !mb_showHTIM;
+		mb_showLTIM = false;
+		mb_showMTIM = false;
+	}
+
+	if (KeyHit( Key_F7 ) )
+	{
+		mb_showCost = false;
+		mb_showWallIM = false;
+		mb_showPathIM = false;
+		mb_showBaseIM = false;
+		mb_showBase2IM = false;
+		mb_showHTIM = false;
+		mb_showLTIM = !mb_showLTIM;
+		mb_showMTIM = false;
+	}
+
+	if (KeyHit( Key_F8 ) )
+	{
+		mb_showCost = false;
+		mb_showWallIM = false;
+		mb_showPathIM = false;
+		mb_showBaseIM = false;
+		mb_showBase2IM = false;
+		mb_showHTIM = false;
+		mb_showLTIM = false;
+		mb_showMTIM = !mb_showMTIM;
 	}
 }
 
@@ -326,24 +423,52 @@ void CScene::RenderScene()
 	FontRect.bottom = 0;
 	FontRect.right = 0;
 
+	if( mb_showBaseIM )
+	{
+		DisplayText( "Base Influence Map", 0);
+		DisplayMapText(BASE_OFFSET);
+	}
+
+	if( mb_showBase2IM )
+	{
+		DisplayText( "Base 2 Influence Map", 0);
+		DisplayMapText(BASE2_OFFSET);
+	}
+
+	if( mb_showCost )
+	{
+		DisplayText( "Square Cost", 0);
+		DisplayMapText(COST_OFFSET);
+	}
+
+	if( mb_showHTIM )
+	{
+		DisplayText( "Heavy Turret Influence Map", 0 );
+		DisplayMapText(HEAVY_OFFSET);
+	}
+
+	if( mb_showLTIM )
+	{
+		DisplayText( "Light Turret Influence Map", 0);
+		DisplayMapText(LIGHT_OFFSET);
+	}
+
+	if( mb_showMTIM )
+	{
+		DisplayText( "Medium Turret Influence Map", 0);
+		DisplayMapText(MEDIUM_OFFSET);
+	}
+
+	if( mb_showPathIM )
+	{
+		DisplayText( "Path Influence Map", 0 );
+		DisplayMapText( PATH_OFFSET);
+	}
+
 	if( mb_showWallIM )
 	{
-		if( md_Font )
-		{
-			D3DXVECTOR2* pixel = new D3DXVECTOR2;
-			for(int i = 0; i < mi_numSquares; i++)
-			{
-				
-				D3DXVECTOR3 world = D3DXVECTOR3(md_mapMatrix[i]._41, md_mapMatrix[i]._42, md_mapMatrix[i]._43);
-				Camera->PixelFromWorldPt(pixel, world);
-				FontRect.top = pixel->y;
-				FontRect.left = pixel->x;
-				char temp[5];
-				_itoa_s( mc_map->GetWallI(i/mi_mapWidth,i%mi_mapWidth), temp, 10 );
-				md_Font->DrawTextA( 0, temp , -1, &FontRect, DT_NOCLIP, FontColour );
-			}
-		}
-
+		DisplayText( "Wall Influence Map", 0);
+		DisplayMapText(WALL_OFFSET);
 	}
 
 	//---------------------------
@@ -757,4 +882,32 @@ void CScene::SetLights( D3DXVECTOR3 source, CLight* lightsSource[MAX_LIGHTS], in
 	dxLightPosA->SetRawValue( positions, 0, 16 * count );
 	dxLightColourA->SetRawValue( colours, 0, 16 * count );
 	dxLightBrightnessA->SetRawValue( bright, 0, 16 * count );
+}
+
+void CScene::DisplayText( char text[], UINT32 line )
+{
+	if( md_Font )
+	{
+		FontRect.top = line * 20;
+		FontRect.left = 0;
+		md_Font->DrawTextA( 0, text, -1, &FontRect, DT_NOCLIP, FontColour );
+	}
+}
+
+void CScene::DisplayMapText( INT32 offset )
+{
+	if( md_Font )
+	{
+		D3DXVECTOR2 pixel ;
+		for(int i = 0; i < mi_numSquares; i++)
+		{	
+			D3DXVECTOR3 world = D3DXVECTOR3(md_mapMatrix[i]._41, md_mapMatrix[i]._42, md_mapMatrix[i]._43);
+			Camera->PixelFromWorldPt(&pixel, world);
+			FontRect.top = pixel.y;
+			FontRect.left = pixel.x;
+			char temp[12];
+			_itoa_s( mc_map->GetValueByOffset(i%mi_mapWidth,i/mi_mapWidth, offset), temp, 10 );
+			md_Font->DrawTextA( 0, temp , -1, &FontRect, DT_NOCLIP, FontColour );
+		}
+	}
 }

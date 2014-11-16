@@ -9,7 +9,9 @@
 #include <fstream>
 
 #include <assert.h>
+#include "TinyXML\tinyxml2.h"
 
+#include <vector>
 /* ***********************************************************************
 * This struct will hold all the influence maps needed for the AI. 
 * Turrets will be built in areas of high path and wall influence.
@@ -20,25 +22,35 @@
 
 struct MapData
 {
-	INT32 cost;
-	INT32 wallInfluence;
-	INT32 lightTurretInfluence;
-	INT32 mediumTurretInfluence;
-	INT32 heavyTurretInfluence;
-	INT32 pathInfluence;
+	UINT32 cost;
+	UINT32 wallInfluence;
+	UINT32 pathInfluence;
+	UINT32 baseInfluence;
+	UINT32 base2Influence;
+	UINT32 lightTurretInfluence;
+	UINT32 mediumTurretInfluence;
+	UINT32 heavyTurretInfluence;
+
 };
 
-
-// Lightweight struct to store the path
-struct PathNode
+// Lightweight struct to store just co-ordinates for the path finding and other uses.
+struct Coords
 {
 	UINT32 x;
 	UINT32 y;
+	INT32 score; //strictly for path finding
 };
+
+
 
 class MapSquare
 {
 public:   //variables
+	Coords ms_P1Start;
+	Coords ms_P2Start;
+
+	Coords ms_path[MAX_MAP_SIZE*4]; // array of path co-ordinates with best guess at likely max size
+
 private:  //varaibles
 	MapData* mv_nodes[MAX_MAP_SIZE][MAX_MAP_SIZE];
 	UINT32 mi_mapHeight;
@@ -47,15 +59,40 @@ private:  //varaibles
 	MapData* mp_memStart;
 	MapData* mp_memNext;
 
+	bool mb_writeXML;
+
 public: //methods
 	MapSquare(std::string fileName);
 	~MapSquare(void);
 
-	UINT32 GetCost( UINT32 x, UINT32 y ){ return mv_nodes[x][y]->cost; }
-	UINT32 GetWallI(UINT32 x, UINT32 y ){ return mv_nodes[x][y]->wallInfluence; }
-	UINT32 GetLightTI(UINT32 x, UINT32 y ){ return mv_nodes[x][y]->lightTurretInfluence; }
-	UINT32 GetHeavyTI(UINT32 x, UINT32 y ){ return mv_nodes[x][y]->heavyTurretInfluence; }
-	UINT32 GetMediumTI(UINT32 x, UINT32 y ){ return mv_nodes[x][y]->mediumTurretInfluence; }
+	UINT32 GetCost( UINT32 x, UINT32 y )	{ return mv_nodes[x][y]->cost; }
+	UINT32 GetWallI(UINT32 x, UINT32 y )	{ return mv_nodes[x][y]->wallInfluence; }
+	UINT32 GetPathI(UINT32 x, UINT32 y)		{ return mv_nodes[x][y]->pathInfluence; }
+	UINT32 GetBaseI(UINT32 x, UINT32 y)		{ return mv_nodes[x][y]->baseInfluence; }
+	UINT32 GetLightTI(UINT32 x, UINT32 y )	{ return mv_nodes[x][y]->lightTurretInfluence; }
+	UINT32 GetHeavyTI(UINT32 x, UINT32 y )	{ return mv_nodes[x][y]->heavyTurretInfluence; }
+	UINT32 GetMediumTI(UINT32 x, UINT32 y )	{ return mv_nodes[x][y]->mediumTurretInfluence; }
+
+	UINT32 GetValueByOffset( UINT32 x, UINT32 y, INT32 offset )
+	{
+		UINT32* target = (UINT32*) mv_nodes[x][y];
+		target += offset;
+		return *target;
+	}
+
+	void SetValueByOffset( UINT32 x, UINT32 y, INT32 offset, UINT32 value )
+	{
+		UINT32* target = (UINT32*) mv_nodes[x][y];
+		target += offset;
+		*target = value;
+	}
+
+	void IncrementValueByOffset( UINT32 x, UINT32 y, INT32 offset)
+	{
+		UINT32* target = (UINT32*) mv_nodes[x][y];
+		target += offset;
+		*target++;
+	}
 
 	UINT32 GetWidth() { return mi_mapWidth; }
 
@@ -63,13 +100,21 @@ public: //methods
 
 	void FillWallInfluence( INT32 range, INT32 x, INT32 y );
 
-	void FillWallInfluenceRecurse( INT32 range, INT32 x, INT32 y);
+	void FillBaseInfluence( INT32 range, INT32 x, INT32 y );
+
+	void FillBase2Influence( INT32 range, INT32 x, INT32 y );
+
+	void FillInfluenceRecurse( INT32 range, INT32 x, INT32 y);
+
+	void FillInfluenceRecurse2( INT32 offset, INT32 range, INT32 x, INT32 y);
 
 	//INT32 GetCost(){ return cost;  }
 	//void SetCost(INT32 newCost){ cost = newCost; }
 	
 private: //methods
 	bool LoadMap(std::string fileName);
+
+	bool WriteMap(std::string fileName);
 
 	bool LoadXMLMap(std::string fileName);
 
@@ -79,6 +124,15 @@ private: //methods
 
 	void CalcWallInfluence();
 
+	bool FindPath();
+
+	bool CompareCoords(Coords* a, Coords* b);
+
+	int SortCoordsScore(const void* a, const void* b);
+
+	void GenerateCoords(Coords* source, std::vector<Coords*>* open, std::vector<Coords*>* closed);
+
+	bool CheckExists(std::vector<Coords*>* list, Coords* item);
 	
 };
 

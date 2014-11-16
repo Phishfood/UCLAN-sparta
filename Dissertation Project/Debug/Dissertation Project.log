@@ -1,15 +1,26 @@
-﻿Build started 14/11/2014 14:34:32.
+﻿Build started 16/11/2014 17:05:46.
      1>Project "C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Dissertation Project\Dissertation Project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Scene.cpp
-         Scene.cpp
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\scene.cpp(69): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\scene.cpp(71): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\scene.cpp(74): warning C4244: 'argument' : conversion from 'int' to 'FLOAT', possible loss of data
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\scene.cpp(339): warning C4244: '=' : conversion from 'FLOAT' to 'LONG', possible loss of data
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\scene.cpp(340): warning C4244: '=' : conversion from 'FLOAT' to 'LONG', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt MapSquare.cpp
+         MapSquare.cpp
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(43): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(45): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(64): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(66): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(80): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(82): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(96): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(98): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(116): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(118): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(129): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(131): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(374): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(293): warning C4715: 'MapSquare::FindPath' : not all control paths return a value
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Dissertation Project\Import" winmm.lib d3d10.lib d3dx10.lib d3dx9.lib dxguid.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.lib" /MACHINE:X86 Debug\Camera.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Dissertation Project\Import" winmm.lib d3d10.lib d3dx10.lib d3dx9.lib dxguid.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.lib" /MACHINE:X86 Debug\AIInterface.obj
+         Debug\AIRandom.obj
+         Debug\Camera.obj
          Debug\Colours.obj
          Debug\CTimer.obj
          Debug\Geometry.obj
@@ -44,4 +55,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.62
+Time Elapsed 00:00:02.42
