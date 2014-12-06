@@ -8,10 +8,29 @@
 #ifndef DEFINES_H_INCLUDED // Header guard - prevents file being included more than once (would cause errors)
 #define DEFINES_H_INCLUDED
 
+
 #include <Windows.h>
+
+//DX 10. Should be able to remove this.
 #include <d3d10.h>
 #include <d3dx10.h>
+
+//DX 11
+#include <D3D11.h>
+#include <d3dcompiler.h>
+#include <DirectXMath.h>
+#include <DirectXColors.h>
+
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "d3dcompiler.lib")
+#pragma comment(lib, "winmm.lib")
+
+//guaranteed variable sizes. 
 #include <stdint.h>
+
+//Break people's brains.
+//#define int auto
 
 const INT32 MAX_MAP_SIZE = 256;
 
