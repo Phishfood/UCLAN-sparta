@@ -2,7 +2,7 @@
 
 #include <string>
 
-ID3D10Device* CGeometry::mpd3dDev;
+ID3D11Device* CGeometry::mpd3dDev;
 
 CGeometry::CGeometry(void)
 {
@@ -274,15 +274,15 @@ void CGeometry::Control( float frameTime, EKeyCode turnUp, EKeyCode turnDown, EK
 	// Local Z movement - move in the direction of the Z axis, get axis from world matrix
 	if (KeyHeld( moveForward ))
 	{
-		m_Position.x += m_WorldMatrix._31 * MoveSpeed * frameTime;
-		m_Position.y += m_WorldMatrix._32 * MoveSpeed * frameTime;
-		m_Position.z += m_WorldMatrix._33 * MoveSpeed * frameTime;
+		m_Position.x += m_WorldMatrix.r[2].m128_f32[0] * MoveSpeed * frameTime;
+		m_Position.y += m_WorldMatrix.r[2].m128_f32[1] * MoveSpeed * frameTime;
+		m_Position.z += m_WorldMatrix.r[2].m128_f32[2] * MoveSpeed * frameTime;
 	}
 	if (KeyHeld( moveBackward ))
 	{
-		m_Position.x -= m_WorldMatrix._31 * MoveSpeed * frameTime;
-		m_Position.y -= m_WorldMatrix._32 * MoveSpeed * frameTime;
-		m_Position.z -= m_WorldMatrix._33 * MoveSpeed * frameTime;
+		m_Position.x -= m_WorldMatrix.r[2].m128_f32[0] * MoveSpeed * frameTime;
+		m_Position.y -= m_WorldMatrix.r[2].m128_f32[1] * MoveSpeed * frameTime;
+		m_Position.z -= m_WorldMatrix.r[2].m128_f32[2] * MoveSpeed * frameTime;
 	}
 }
 
@@ -309,10 +309,10 @@ void CGeometry::Render( ID3D10EffectTechnique* technique )
 
 	// Select vertex and index buffer - assuming all data will be as triangle lists
 	UINT offset = 0;
-	mpd3dDev->IASetVertexBuffers( 0, 1, &m_VertexBuffer, &m_VertexSize, &offset );
-	mpd3dDev->IASetInputLayout( m_VertexLayout );
-	mpd3dDev->IASetIndexBuffer( m_IndexBuffer, DXGI_FORMAT_R16_UINT, 0 );
-	mpd3dDev->IASetPrimitiveTopology( D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
+	mp_d3dDeviceContext->IASetVertexBuffers( 0, 1, &m_VertexBuffer, &m_VertexSize, &offset );
+	mp_d3dDeviceContext->IASetInputLayout( m_VertexLayout );
+	mp_d3dDeviceContext->IASetIndexBuffer( m_IndexBuffer, DXGI_FORMAT_R16_UINT, 0 );
+	mp_d3dDeviceContext->IASetPrimitiveTopology( D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
 
 	// Render the model. All the data and shader variables are prepared, now select the technique to use and draw.
 	// The loop is for advanced techniques that need multiple passes - we will only use techniques with one pass
@@ -321,7 +321,7 @@ void CGeometry::Render( ID3D10EffectTechnique* technique )
 	for( UINT p = 0; p < techDesc.Passes; ++p )
 	{
 		technique->GetPassByIndex( p )->Apply( 0 );
-		mpd3dDev->DrawIndexed( m_NumIndices, 0, 0 );
+		mp_d3dDeviceContext->DrawIndexed( m_NumIndices, 0, 0 );
 	}
-	mpd3dDev->DrawIndexed( m_NumIndices, 0, 0 );
+	mp_d3dDeviceContext->DrawIndexed( m_NumIndices, 0, 0 );
 }

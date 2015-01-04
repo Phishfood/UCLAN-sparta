@@ -1,15 +1,18 @@
 #pragma once
 
 //External includes
-#include <windows.h>
-#include <d3d10.h>
-#include <d3dx10.h>
 #include <atlbase.h>
 #include <sstream>
 #include <iostream>
 #include <fstream>
 #include "resource.h"
+#include "D3DCompiler.h"
+#include "D3DX11async.h"
 
+#pragma comment(lib, "D3DCompiler.lib")
+#pragma comment(lib, "D3DX11.lib")
+//#pragma comment(lib, "D3DX11EffectsD.lib")
+#pragma comment(lib, "Effects11D.lib")
 //Local includes
 #include "Defines.h"    // General definitions shared by all source files
 #include "Model.h"      // Model class - encapsulates working with vertex/index data and world matrix
@@ -23,6 +26,8 @@
 
 #include "Colours.h"		// Functions to adjust colours
 
+
+
 class CScene
 {
 private:
@@ -34,10 +39,7 @@ private:
 	CModel* mp_mapModel;
 	
 	// Text rendering
-	ID3DX10Font* md_Font;
-	D3DX10_FONT_DESC FontDesc;
 	RECT FontRect;
-	D3DXCOLOR FontColour;
 
 	// Display options
 	bool mb_showCost;
@@ -51,7 +53,8 @@ private:
 	
 
 	// DX Device pointer
-	ID3D10Device* mpd3dDevice;
+	ID3D11Device* mpd3dDevice;
+	ID3D11DeviceContext* mpd3dDeviceContext;
 
 	//Viewport details - static because the message handler is static. 
 	static int mViewportWidth, mViewportHeight;	
@@ -93,11 +96,15 @@ private:
 	//--------------------------------------------------------------------------------------
 	// Variables to connect C++ code to HLSL shaders
 
-	// Effects / techniques
+	// Effects / techniques - No longer used, delete?
 	ID3D10Effect*          Effect;
 	ID3D10EffectTechnique* mTechniques[30];
 	ID3D10EffectTechnique* mTechniquesMirror[30];
 	int miNumTechniques;
+
+	// Shaders
+	ID3D11PixelShader*  mp_PixelShader[30];
+	ID3D11VertexShader* mp_VertexShader[30];
 
 	// Matrices
 	ID3D10EffectMatrixVariable* WorldMatrixVar;
@@ -132,9 +139,10 @@ private:
 
 	// Variables used to setup D3D
 	IDXGISwapChain*         SwapChain;
-	ID3D10Texture2D*        DepthStencil;
-	ID3D10DepthStencilView* DepthStencilView;
-	ID3D10RenderTargetView* RenderTargetView;
+	ID3D11Texture2D*        DepthStencil;
+	ID3D11DepthStencilView* DepthStencilView;
+	ID3D11RenderTargetView* RenderTargetView;
+	
 
 	// Variables used to setup the Window
 	HINSTANCE HInst;
@@ -166,7 +174,7 @@ public:
 	bool InitScene();
 	void UpdateScene( float frameTime );
 	void RenderScene();
-	void RenderMirrors();
+	//void RenderMirrors();
 	bool InitWindow( HINSTANCE hInstance, int nCmdShow );
 
 };

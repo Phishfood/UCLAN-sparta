@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Model.cpp">
-      <Filter>Modified Code</Filter>
-    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Created Code</Filter>
     </ClCompile>
@@ -76,9 +73,6 @@
     <ClCompile Include="GeometryManager.cpp">
       <Filter>Created Code\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="ImportOBJ.cpp">
-      <Filter>Created Code\Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Created Code\Textures</Filter>
     </ClCompile>
@@ -97,14 +91,17 @@
     <ClCompile Include="AIRandom.cpp">
       <Filter>Created Code\AI</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Created Code\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Import OBJ.cpp">
+      <Filter>External Code</Filter>
+    </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Created Code\AI</Filter>
+      <Filter>Created Code</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Model.h">
-      <Filter>Modified Code</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Created Code</Filter>
     </ClInclude>
@@ -201,9 +198,6 @@
     <ClInclude Include="GeometryManager.h">
       <Filter>Created Code\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="ImportOBJ.h">
-      <Filter>Created Code\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Created Code\Misc</Filter>
     </ClInclude>
@@ -221,6 +215,9 @@
     </ClInclude>
     <ClInclude Include="AIRandom.h">
       <Filter>Created Code\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Created Code\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +251,9 @@
     <Filter Include="Created Code\AI">
       <UniqueIdentifier>{434a8aa3-4f13-44d0-a22c-7772fe90687e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Created Code\Shaders">
+      <UniqueIdentifier>{5032cb19-cd86-466f-b459-17bb3ea0d76d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="bob.txt">
@@ -261,8 +261,14 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>Created Code\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Created Code\Shaders</Filter>
+    </FxCompile>
     <FxCompile Include="GraphicsAssign1.fx">
-      <Filter>Other files</Filter>
+      <Filter>Created Code\Shaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

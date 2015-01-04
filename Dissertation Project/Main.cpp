@@ -6,6 +6,15 @@
 
 #include "Scene.h"			// Scene class - reduces globals.
 
+V3 XMF3ToFloat3( DirectX::XMFLOAT3 in)
+{
+		V3 temp;
+		temp.x = in.x;
+		temp.y = in.y;
+		temp.z = in.z;
+		return temp;
+}
+
 int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow )
 {
 	CScene* myScene = new CScene();

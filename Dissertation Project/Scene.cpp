@@ -14,9 +14,7 @@ CScene::CScene(void)
 
 	//set the controlled object to the mirror
 	mControlObject = 0;
-
-	FontColour = D3DXCOLOR( 1.0f, 0.0f, 0.0f, 1.0f );
-
+	
 	mb_showWallIM = false;
 	mb_showWallIM = false;
 	mb_showPathIM = false;
@@ -50,19 +48,6 @@ bool CScene::InitScene()
 
 	mc_map = new MapSquare("bob");
 
-	FontDesc.Height	= 20;
-	FontDesc.Width	= 0;
-	FontDesc.Weight	= 0;
-	FontDesc.MipLevels	= 1;
-	FontDesc.Italic	= false;
-	FontDesc.CharSet = OUT_DEFAULT_PRECIS;
-	FontDesc.Quality = DEFAULT_QUALITY;
-	FontDesc.PitchAndFamily	= DEFAULT_PITCH | FF_DONTCARE;
-
-	strcpy_s( FontDesc.FaceName, "Arial" );
-
-	D3DX10CreateFontIndirect( mpd3dDevice, &FontDesc, &md_Font );
-
 	//caching these locally - does mean more coupling, but seems better than fetching an unchanging variable repeatedly.
 	mi_mapHeight = mc_map->GetHeight();
 	mi_mapWidth = mc_map->GetWidth();
@@ -70,7 +55,7 @@ bool CScene::InitScene()
 	mi_numSquares = 0;
 
 	mp_mapModel = new CModel( D3DXVECTOR3(0.0f,0.0f,0.0f), D3DXVECTOR3(0.0f,0.0f,0.0f), 0.1f );
-	mp_mapModel->Load( "Cube.x", mTechniques[0], false );
+	mp_mapModel->Load( "Cube.obj", mTechniques[0], false );
 
 	for (int y = 0; y < mi_mapHeight; y++)
 	{
@@ -268,7 +253,7 @@ void CScene::DrawObject(int i, bool mirror)
 	dxOutlineThickness->SetRawValue( &thickness, 0, 4);
 
 	//pass the matrix
-	WorldMatrixVar->SetMatrix( (float*)mpObjects[i]->GetModel()->GetWorldMatrix() );
+	WorldMatrixVar->SetMatrix( (float*)mpObjects[i]->GetModel()->GetWorldMatrix().r );
 	
 	//pass the textures and maps, if there are any. 
 	if( mpObjects[i]->GetTexture() != nullptr )
@@ -281,7 +266,9 @@ void CScene::DrawObject(int i, bool mirror)
 	}
 
 	//pass the model colour - used for untextured models, texture colour change and outline colour in cell shading
-	ModelColourVar->SetRawValue( mpObjects[i]->GetColourV(), 0, 12 );
+	DirectX::XMFLOAT3 f3 = mpObjects[i]->GetColourV();
+	V3 temp = XMF3ToFloat3( mpObjects[i]->GetColourV() );
+	ModelColourVar->SetRawValue( (float*)&temp, 0, 12 );
 	
 	//if the object is lit, pass over the 12 closest lights. 
 	if( mpObjects[i]->IsLit() )
@@ -323,9 +310,9 @@ void CScene::DrawAllObjects(bool mirror)
 
 	for(int i = 0; i < miNumLights; i++)
 	{
-		WorldMatrixVar->SetMatrix( (float*)mpLights[i]->GetModel()->GetWorldMatrix() );
-		D3DXVECTOR3 mColour =  mpLights[i]->GetColourV();
-		ModelColourVar->SetRawValue(mColour, 0, 12 );
+		WorldMatrixVar->SetMatrix( (float*)mpLights[i]->GetModel()->GetWorldMatrix().r );
+		V3 temp = XMF3ToFloat3(mpLights[i]->GetColourV() );
+		ModelColourVar->SetRawValue(&temp, 0, 12 );
 		if( mirror )
 		{
 			mpLights[i]->GetModel()->Render( mTechniquesMirror[0] );
@@ -354,8 +341,8 @@ void CScene::RenderScene()
 {
 	// Clear the back buffer - before drawing the geometry clear the entire window to a fixed colour
 	float ClearColor[4] = { 0.2f, 0.2f, 0.3f, 1.0f }; // Good idea to match background to ambient colour
-	mpd3dDevice->ClearRenderTargetView( RenderTargetView, ClearColor );
-	mpd3dDevice->ClearDepthStencilView( DepthStencilView, D3D10_CLEAR_DEPTH | D3D10_CLEAR_STENCIL , 1.0f, 0 ); // Clear the depth buffer too
+	mpd3dDeviceContext->ClearRenderTargetView( RenderTargetView, ClearColor );
+	mpd3dDeviceContext->ClearDepthStencilView( DepthStencilView, D3D10_CLEAR_DEPTH | D3D10_CLEAR_STENCIL , 1.0f, 0 ); // Clear the depth buffer too
 
 
 	// Pass the camera's matrices to the vertex shader
@@ -363,10 +350,12 @@ void CScene::RenderScene()
 	ProjMatrixVar->SetMatrix( (float*)&Camera->GetProjectionMatrix() );
 
 	//pass the camera position
-	dxCameraPos->SetRawValue( D3DXVECTOR3( Camera->GetPosition()), 0, 12);
+	V3 temp = XMF3ToFloat3( Camera->GetPosition() );
+	dxCameraPos->SetRawValue( &temp, 0, 12);
 
 	//pass the lighting colours
-	dxAmbientColour->SetRawValue( AmbientColour, 0, 12  );
+	temp = XMF3ToFloat3( AmbientColour );
+	dxAmbientColour->SetRawValue( &temp, 0, 12  );
 
 	//---------------------------
 	// Render each model
@@ -379,8 +368,9 @@ void CScene::RenderScene()
 	//85 fps this way - 20% improvement over the old way. 
 	for(int i = 0; i < mi_numSquares; i++)
 	{
-		WorldMatrixVar->SetMatrix( (float*) md_mapMatrix[i] );
-		ModelColourVar->SetRawValue( md_mapColours[i], 0, 12 );
+		WorldMatrixVar->SetMatrix( (float*) md_mapMatrix[i].r );
+		V3 temp = XMF3ToFloat3 ( md_mapColours[i] );
+		ModelColourVar->SetRawValue( &temp, 0, 12 );
 		mp_mapModel->QuickRender();
 	}
 
@@ -476,68 +466,6 @@ void CScene::RenderScene()
 
 	// After we've finished drawing to the off-screen back buffer, we "present" it to the front buffer (the screen)
 	SwapChain->Present( 0, 0 );
-}
-
-// No longer needed - delete?
-void CScene::RenderMirrors()
-{
-	
-	//*******************************************************************************************************
-	// First set the stencil value for all mirror pixels to 1 and clear the mirror to a fixed colour and 
-	// set its depth-buffer values to maximum (so we can render "inside" the mirror)
-
-	D3DXMATRIXA16 mirrorMatrix = mpObjects[0]->GetModel()->GetWorldMatrix();
-	WorldMatrixVar->SetMatrix( (float*)mirrorMatrix );
-	ModelColourVar->SetRawValue( mpObjects[0]->GetColourV(), 0, 12 );
-	mpObjects[0]->Render();
-
-	//*******************************************************************************************************
-	// Next reflect the camera in the mirror
-
-	// Some mathematics to get as reflected version of the camera - using DirectX helper functions mostly
-
-	// Create a plane for the mirror
-	D3DXPLANE mirrorPlane;
-	D3DXVECTOR3 mirrorPoint  = D3DXVECTOR3( mirrorMatrix(3,0), mirrorMatrix(3,1), mirrorMatrix(3,2) );
-	D3DXVECTOR3 mirrorNormal = D3DXVECTOR3( mirrorMatrix(2,0), mirrorMatrix(2,1), mirrorMatrix(2,2) );
-	D3DXPlaneFromPointNormal( &mirrorPlane, &mirrorPoint, &mirrorNormal );
-	
-	// Reflect the camera's view matrix in the mirror plane
-	D3DXMATRIXA16 reflectMatrix;
-	D3DXMatrixReflect( &reflectMatrix, &mirrorPlane );
-	D3DXMATRIXA16 reflectViewMatrix = reflectMatrix * Camera->GetViewMatrix();
-
-	// Reflect the camera's position in the mirror plane
-	D3DXVECTOR3 cameraPos = Camera->GetPosition();
-	D3DXVECTOR4 reflectCameraPos4; // Initially generate a 4 element vector
-	D3DXVec3Transform( &reflectCameraPos4, &cameraPos, &reflectMatrix );
-	D3DXVECTOR3 reflectCameraPos = D3DXVECTOR3( (float*)reflectCameraPos4 ); // Drop 4th element
-
-
-	//*******************************************************************************************************
-	// Render all the models "inside" the mirror
-
-	// Set the reflected camera data in the shaders
-	ViewMatrixVar->SetMatrix( (float*)&reflectViewMatrix );
-	dxCameraPos->SetRawValue( reflectCameraPos, 0, 12 );
-	ClipPlaneVar->SetRawValue( mirrorPlane, 0, 16 );
-
-	// Need to use slightly different techniques to avoid mirror rendering being "inside out"
-	
-	DrawAllObjects(true);
-
-	// Restore main camera data in the shaders
-	ViewMatrixVar->SetMatrix( (float*)&Camera->GetViewMatrix() );
-	dxCameraPos->SetRawValue( Camera->GetPosition(), 0, 12 );
-	ClipPlaneVar->SetRawValue( D3DXVECTOR4(0,0,0,0), 0, 16 );
-
-
-	//*******************************************************************************************************
-	// Finally draw a "surface" for the mirror - a transparent layer over the mirror contents. This sets the correct depth-buffer values 
-	// for the mirror surface, so further rendering won't go "inside" the mirrored scene
-
-	WorldMatrixVar->SetMatrix( (float*)mpObjects[0]->GetModel()->GetWorldMatrix() );
-	mpObjects[0]->RenderMirror();
 }
 
 
@@ -648,21 +576,46 @@ bool CScene::InitDevice()
 	sd.BufferDesc.Width = mViewportWidth;             // Target window size
 	sd.BufferDesc.Height = mViewportHeight;           // --"--
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // Pixel format of target window
-	sd.BufferDesc.RefreshRate.Numerator = 60;          // Refresh rate of monitor
+	sd.BufferDesc.RefreshRate.Numerator = 60;         // Refresh rate of monitor
 	sd.BufferDesc.RefreshRate.Denominator = 1;         // --"--
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.SampleDesc.Count = 1;
 	sd.SampleDesc.Quality = 0;
 	sd.OutputWindow = HWnd;                          // Target window
-	sd.Windowed = TRUE;                                // Whether to render in a window (TRUE) or go fullscreen (FALSE)
-	hr = D3D10CreateDeviceAndSwapChain( NULL, D3D10_DRIVER_TYPE_HARDWARE, NULL, D3D10_CREATE_DEVICE_DEBUG,
-										D3D10_SDK_VERSION, &sd, &SwapChain, &mpd3dDevice );
+	sd.Windowed = TRUE; // Whether to render in a window (TRUE) or go fullscreen (FALSE)
+
+	D3D_FEATURE_LEVEL featureLevels[] = 
+    {
+        D3D_FEATURE_LEVEL_11_1,
+        D3D_FEATURE_LEVEL_11_0,
+        D3D_FEATURE_LEVEL_10_1,
+        D3D_FEATURE_LEVEL_10_0,
+        D3D_FEATURE_LEVEL_9_3,
+        D3D_FEATURE_LEVEL_9_2,
+        D3D_FEATURE_LEVEL_9_1
+    };
+	D3D_FEATURE_LEVEL fLevel;
+
+	hr = D3D11CreateDeviceAndSwapChain( 
+		NULL,						//Adaptor - Use default
+		D3D_DRIVER_TYPE_HARDWARE,	//Driver Type - Hardware, always hardware. 
+		NULL,						//Software rasteriser. Yeah right. Null because we are using hardware.
+		2,							//Build flags (2 = debug)
+		featureLevels,				//feature levels (see above)
+		7,							//number of feature levels
+		D3D11_SDK_VERSION,			//SDK version
+		&sd,						//SwapChainDesc
+		&SwapChain,					//SwapChain
+		&mpd3dDevice,				//Device
+		&fLevel,					//chosen feature level
+		&mpd3dDeviceContext			//Device context
+		);			
 	if( FAILED( hr ) ) return false;
 
 
 	// Specify the render target as the back-buffer - this is an advanced topic. This code almost always occurs in the standard D3D setup
-	ID3D10Texture2D* pBackBuffer;
-	hr = SwapChain->GetBuffer( 0, __uuidof( ID3D10Texture2D ), ( LPVOID* )&pBackBuffer );
+	ID3D11Texture2D* pBackBuffer;
+	hr = SwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
 	if( FAILED( hr ) ) return false;
 	hr = mpd3dDevice->CreateRenderTargetView( pBackBuffer, NULL, &RenderTargetView );
 	pBackBuffer->Release();
@@ -670,7 +623,7 @@ bool CScene::InitDevice()
 
 
 	// Create a texture (bitmap) to use for a depth buffer
-	D3D10_TEXTURE2D_DESC descDepth;
+	D3D11_TEXTURE2D_DESC descDepth;
 	descDepth.Width = mViewportWidth;
 	descDepth.Height = mViewportHeight;
 	descDepth.MipLevels = 1;
@@ -680,38 +633,40 @@ bool CScene::InitDevice()
 	//descDepth.Format = DXGI_FORMAT_D32_FLOAT_S8X24_UINT;	// 32 bit depth + 8 for stencil, 24 unused bytes - more precise depth buffer
 	descDepth.SampleDesc.Count = 1;
 	descDepth.SampleDesc.Quality = 0;
-	descDepth.Usage = D3D10_USAGE_DEFAULT;
-	descDepth.BindFlags = D3D10_BIND_DEPTH_STENCIL;
+	descDepth.Usage = D3D11_USAGE_DEFAULT;
+	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	descDepth.CPUAccessFlags = 0;
 	descDepth.MiscFlags = 0;
 	hr = mpd3dDevice->CreateTexture2D( &descDepth, NULL, &DepthStencil );
 	if( FAILED( hr ) ) return false;
 
 	// Create the depth stencil view, i.e. indicate that the texture just created is to be used as a depth buffer
-	D3D10_DEPTH_STENCIL_VIEW_DESC descDSV;
+	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 	descDSV.Format = descDepth.Format;
-	descDSV.ViewDimension = D3D10_DSV_DIMENSION_TEXTURE2D;
+	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	descDSV.Texture2D.MipSlice = 0;
+	descDSV.Flags = 0;
 	hr = mpd3dDevice->CreateDepthStencilView( DepthStencil, &descDSV, &DepthStencilView );
 	if( FAILED( hr ) ) return false;
 
 	// Select the back buffer and depth buffer to use for rendering now
-	mpd3dDevice->OMSetRenderTargets( 1, &RenderTargetView, DepthStencilView );
+	mpd3dDeviceContext->OMSetRenderTargets( 1, &RenderTargetView, DepthStencilView );
 
 
 	// Setup the viewport - defines which part of the window we will render to, almost always the whole window
-	D3D10_VIEWPORT vp;
+	D3D11_VIEWPORT vp;
 	vp.Width  = mViewportWidth;
 	vp.Height = mViewportHeight;
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
-	mpd3dDevice->RSSetViewports( 1, &vp );
+	mpd3dDeviceContext->RSSetViewports( 1, &vp );
 
 	CCamera::SetViewport( mViewportWidth, mViewportHeight );
 	
 	CModel::SetDevice( mpd3dDevice );
+	CModel::SetDeviceContext( mpd3dDeviceContext );
 
 	//test->SetDevice( mpd3dDevice );
 
@@ -726,7 +681,7 @@ void CScene::ReleaseResources()
 	// Each object that allocates memory (or hardware resources) needs to be "released" when we exit the program
 	// There is similar code in every D3D program, but the list of objects that need to be released depends on what was created
 	// Test each variable to see if it exists before deletion
-	if( mpd3dDevice )     mpd3dDevice->ClearState();
+	if( mpd3dDeviceContext )     mpd3dDeviceContext->ClearState();
 
 	delete Camera;
 
@@ -766,11 +721,74 @@ void CScene::ReleaseResources()
 
 bool CScene::LoadEffectFile()
 {
+	ID3D10Blob* pEffectBlob;
 	ID3D10Blob* pErrors; // This strangely typed variable collects any errors when compiling the effect file
 	DWORD dwShaderFlags = D3D10_SHADER_ENABLE_STRICTNESS; // These "flags" are used to set the compiler options
 
 	// Load and compile the effect file
-	HRESULT hr = D3DX10CreateEffectFromFile( "GraphicsAssign1.fx", NULL, NULL, "fx_4_0", dwShaderFlags, 0, mpd3dDevice, NULL, NULL, &Effect, &pErrors, NULL );
+	//HRESULT hr = D3DX10CreateEffectFromFile( "GraphicsAssign1.fx", NULL, NULL, "fx_4_0", dwShaderFlags, 0, mpd3dDevice, NULL, NULL, &Effect, &pErrors, NULL );
+	HRESULT hr;
+	/*D3DX11CompileFromFile(
+		"GraphicsAssign1.fx", //File Name
+		NULL, //defines
+		NULL, //include
+		NULL, //function name
+		"fx_5_0", //profile
+		dwShaderFlags,  //flags
+		0, //flags2
+		NULL, //ppump
+		&pEffectBlob, //shader
+		&pErrors, //errors
+		&hr //result
+	);*/
+	
+	D3DX11CompileFromFile(
+		"VertexShader.hlsl",
+		NULL,
+		NULL,
+		"main",
+		"fx_5_0",
+		dwShaderFlags,
+		0,
+		NULL,
+		&pEffectBlob,
+		&pErrors,
+		&hr
+	);
+
+	if( FAILED( hr ) )
+	{
+		if (pErrors != 0)  MessageBox( NULL, CA2CT(reinterpret_cast<char*>(pErrors->GetBufferPointer())), "Error", MB_OK ); // Compiler error: display error message
+		else               MessageBox( NULL, "Error loading FX file. Ensure your FX file is in the same folder as this executable.", "Error", MB_OK );  // No error message - probably file not found
+		return false;
+	}
+
+	mpd3dDevice->CreateVertexShader(pEffectBlob->GetBufferPointer(), pEffectBlob->GetBufferSize(), NULL, &mp_VertexShader[0]);
+
+	D3DX11CompileFromFile(
+		"PixelShader.hlsl",
+		NULL,
+		NULL,
+		"main",
+		"fx_5_0",
+		dwShaderFlags,
+		0,
+		NULL,
+		&pEffectBlob,
+		&pErrors,
+		&hr
+	);
+
+	if( FAILED( hr ) )
+	{
+		if (pErrors != 0)  MessageBox( NULL, CA2CT(reinterpret_cast<char*>(pErrors->GetBufferPointer())), "Error", MB_OK ); // Compiler error: display error message
+		else               MessageBox( NULL, "Error loading FX file. Ensure your FX file is in the same folder as this executable.", "Error", MB_OK );  // No error message - probably file not found
+		return false;
+	}
+
+	mpd3dDevice->CreatePixelShader(pEffectBlob->GetBufferPointer(), pEffectBlob->GetBufferSize(), NULL, &mp_PixelShader[0]);
+
+
 	if( FAILED( hr ) )
 	{
 		if (pErrors != 0)  MessageBox( NULL, CA2CT(reinterpret_cast<char*>(pErrors->GetBufferPointer())), "Error", MB_OK ); // Compiler error: display error message
@@ -780,14 +798,16 @@ bool CScene::LoadEffectFile()
 
 	// Now we can select techniques from the compiled effect file
 	// Regular techniques for the main scene
-	mTechniques[ 0]	= Effect->GetTechniqueByName( "tPlainColour" );
-	mTechniques[ 1]	= Effect->GetTechniqueByName( "tPlainTexture" );
-	mTechniques[ 2]	= Effect->GetTechniqueByName( "tColourChangeTexture" );
-	mTechniques[ 3]	= Effect->GetTechniqueByName( "tLitTexture" );
-	mTechniques[ 4]	= Effect->GetTechniqueByName( "t4LitTexture" );
+	mTechniques[0] = NULL;
+	//mTechniques[ 0]	= Effect->GetTechniqueByName( "tPlainColour" );
+	//mTechniques[ 1]	= Effect->GetTechniqueByName( "tPlainTexture" );
+	//mTechniques[ 2]	= Effect->GetTechniqueByName( "tColourChangeTexture" );
+	//mTechniques[ 3]	= Effect->GetTechniqueByName( "tLitTexture" );
+	//mTechniques[ 4]	= Effect->GetTechniqueByName( "t4LitTexture" );
 	miNumTechniques = 5;
 
-	// Create special variables to allow us to access global variables in the shaders from C++
+	
+	/*// Create special variables to allow us to access global variables in the shaders from C++
 	WorldMatrixVar		= Effect->GetVariableByName( "WorldMatrix" )->AsMatrix();
 	ViewMatrixVar		= Effect->GetVariableByName( "ViewMatrix"  )->AsMatrix();
 	ProjMatrixVar		= Effect->GetVariableByName( "ProjMatrix"  )->AsMatrix();
@@ -813,7 +833,7 @@ bool CScene::LoadEffectFile()
 	dxWiggle = Effect->GetVariableByName( "wiggle" )->AsScalar();
 	dxOutlineThickness = Effect->GetVariableByName( "OutlineThickness" )->AsScalar();
 
-	ClipPlaneVar      = Effect->GetVariableByName( "ClipPlane"      )->AsVector();
+	ClipPlaneVar      = Effect->GetVariableByName( "ClipPlane"      )->AsVector();*/
 
 	return true;
 }
@@ -874,8 +894,11 @@ void CScene::SetLights( D3DXVECTOR3 source, CLight* lightsSource[MAX_LIGHTS], in
 	for(int i = 0; i < count; i++)
 	{
 		int c = indexes[i].index;
-		positions[i] = D3DXVECTOR4 (mpLights[c]->GetModel()->GetPosition(), 0 );
-		colours[i] = D3DXVECTOR4 ( mpLights[c]->GetColourV(), 0 );
+		V3 temp = XMF3ToFloat3( mpLights[c]->GetModel()->GetPosition() );
+		positions[i] = D3DXVECTOR4 (temp.x, temp.y, temp.z, 0 );
+
+		temp = XMF3ToFloat3( mpLights[c]->GetColourV() );
+		colours[i] = D3DXVECTOR4 (temp.x, temp.y, temp.z, 0 );
 		bright[i] = D3DXVECTOR4( mpLights[c]->GetBrightness(), 0, 0, 0 );   // vector 4 for packing, remaining variables would be useful for light type and angle. 
 	}
 
@@ -886,17 +909,17 @@ void CScene::SetLights( D3DXVECTOR3 source, CLight* lightsSource[MAX_LIGHTS], in
 
 void CScene::DisplayText( char text[], UINT32 line )
 {
-	if( md_Font )
+	/*if( md_Font )
 	{
 		FontRect.top = line * 20;
 		FontRect.left = 0;
 		md_Font->DrawTextA( 0, text, -1, &FontRect, DT_NOCLIP, FontColour );
-	}
+	}*/
 }
 
 void CScene::DisplayMapText( INT32 offset )
 {
-	if( md_Font )
+	/*if( md_Font )
 	{
 		D3DXVECTOR2 pixel ;
 		for(int i = 0; i < mi_numSquares; i++)
@@ -909,5 +932,5 @@ void CScene::DisplayMapText( INT32 offset )
 			_itoa_s( mc_map->GetValueByOffset(i%mi_mapWidth,i/mi_mapWidth, offset), temp, 10 );
 			md_Font->DrawTextA( 0, temp , -1, &FontRect, DT_NOCLIP, FontColour );
 		}
-	}
+	}*/
 }

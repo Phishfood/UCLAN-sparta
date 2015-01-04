@@ -16,8 +16,11 @@
 
 #include <vector>
 using namespace std;
-#include <d3d9.h>
-#include <d3dx9.h>
+#include <D3D11.h>
+#include <d3dcompiler.h>
+#include <DirectXMath.h>
+#include <DirectXColors.h>
+#include <D3DX11async.h>
 
 #include "CVector3.h"
 #include "CMatrix4x4.h"

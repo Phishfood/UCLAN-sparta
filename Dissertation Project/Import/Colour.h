@@ -8,9 +8,7 @@
 #ifndef GEN_COLOUR_H_INCLUDED
 #define GEN_COLOUR_H_INCLUDED
 
-#include <d3d10.h>
-#include <d3dx10.h>
-
+#include "..\Defines.h"
 #include "GenDefines.h"
 
 namespace gen

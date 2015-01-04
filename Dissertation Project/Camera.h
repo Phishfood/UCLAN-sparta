@@ -7,6 +7,7 @@
 #ifndef CAMERA_H_INCLUDED // Header guard - prevents file being included more than once (would cause errors)
 #define CAMERA_H_INCLUDED
 
+#include "Defines.h"
 #include "Input.h"
 
 //-----------------------------------------------------------------------------

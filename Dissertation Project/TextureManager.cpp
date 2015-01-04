@@ -1,7 +1,7 @@
 #include "TextureManager.h"
 
 
-CTextureManager::CTextureManager(ID3D10Device* device)
+CTextureManager::CTextureManager(ID3D11Device* device)
 {
 	mpd3dDevice = device;
 }
@@ -22,8 +22,8 @@ ID3D10ShaderResourceView* CTextureManager::LoadTexture ( char filename[50] )
 		}
 	}
 	
-	ID3D10ShaderResourceView* newTexture;
-	D3DX10CreateShaderResourceViewFromFileA( mpd3dDevice, filename,		NULL, NULL, &newTexture, NULL );
+	ID3D11ShaderResourceView* newTexture;
+	D3DX11CreateShaderResourceViewFromFileA( mpd3dDevice, filename,		NULL, NULL, &newTexture, NULL );
 	if( newTexture == nullptr )
 	{
 		return nullptr;

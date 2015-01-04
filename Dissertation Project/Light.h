@@ -2,8 +2,7 @@
 
 #include "Model.h"
 #include "Colours.h"
-#include <d3d10.h>
-#include <d3dx10.h>
+#include "Defines.h"
 
 enum lightType
 {

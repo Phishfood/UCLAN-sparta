@@ -10,10 +10,26 @@
 #define MODEL_H_INCLUDED
 
 #include <string>
+#include <vector>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <istream>
+#include <sstream>
 using namespace std;
 
 #include "Defines.h"
 #include "Input.h"
+
+
+struct SurfaceMaterial
+{
+	std::wstring matName;
+	DirectX::XMFLOAT4 difColor;
+	int texArrayIndex;
+	bool hasTexture;
+	bool transparent;
+};
 
 
 class CModel
@@ -21,7 +37,8 @@ class CModel
 /////////////////////////////
 // Private member variables
 private:
-	static ID3D10Device* mpd3dDev;
+	static ID3D11Device* mpd3dDev;
+	static ID3D11DeviceContext* mp_d3dDeviceContext;
 	//-----------------
 	// Postioning
 
@@ -45,26 +62,40 @@ private:
 	bool                     m_HasGeometry;
 
 	// Vertex data for the model stored in a vertex buffer and the number of the vertices in the buffer
-	ID3D10Buffer*            m_VertexBuffer;
+	ID3D11Buffer*            m_VertexBuffer;
 	unsigned int             m_NumVertices;
 
 	// Description of the elements in a single vertex (position, normal, UVs etc.)
 	static const int         MAX_VERTEX_ELTS = 64;
-	D3D10_INPUT_ELEMENT_DESC m_VertexElts[MAX_VERTEX_ELTS];
-	ID3D10InputLayout*       m_VertexLayout; // Layout of a vertex (derived from above)
+	D3D11_INPUT_ELEMENT_DESC m_VertexElts[MAX_VERTEX_ELTS];
+	ID3D11InputLayout*       m_VertexLayout; // Layout of a vertex (derived from above)
 	unsigned int             m_VertexSize;   // Size of vertex calculated from contained elements
 
 	// Index data for the model stored in a index buffer and the number of indices in the buffer
-	ID3D10Buffer*            m_IndexBuffer;
+	ID3D11Buffer*            m_IndexBuffer;
 	unsigned int             m_NumIndices;
 
 	D3D10_TECHNIQUE_DESC  m_techDesc;
 	ID3D10EffectTechnique* m_technique;
+
+	uint32_t mi_meshSubsets;
+	std::vector<uint32_t> mv_meshSubsetIndexStart;
+	std::vector<uint32_t> mv_meshSubsetTexture;
+
+	std::vector<SurfaceMaterial> mv_material;
+
+/////////////////////////////
+// Private functions
+
+	bool LoadX(const string& fileName, ID3D10EffectTechnique* shaderCode, bool tangents = false );
+	bool LoadOBJ(const string& fileName, ID3D10EffectTechnique* shaderCode, bool tangents = false );
+
 /////////////////////////////
 // Public member functions
 public:
 	
-	static void SetDevice(ID3D10Device* newDevice) { mpd3dDev = newDevice; }
+	static void SetDevice(ID3D11Device* newDevice) { mpd3dDev = newDevice; }
+	static void SetDeviceContext(ID3D11DeviceContext* newDevCont) { mp_d3dDeviceContext = newDevCont; }
 
 	///////////////////////////////
 	// Constructors / Destructors

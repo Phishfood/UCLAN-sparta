@@ -100,12 +100,20 @@ void CLight::Update(float frameTime)
 	mCumulativeTime += frameTime;
 	if( mOrbitPoint )
 	{
-		mModel->SetPosition( mOrbitingPoint + D3DXVECTOR3(cos(mCumulativeTime * mOrbitSpeed)* mOrbitRadius, 0, sin(mCumulativeTime * mOrbitSpeed) * mOrbitRadius) );
+		D3DXVECTOR3 temp = D3DXVECTOR3( cos(mCumulativeTime * mOrbitSpeed)* mOrbitRadius, 0, sin(mCumulativeTime * mOrbitSpeed) * mOrbitRadius);
+		temp.x += mOrbitingPoint.x;
+		temp.y += mOrbitingPoint.y;
+		temp.z += mOrbitingPoint.z;
+		mModel->SetPosition( temp );
 	}
 
 	if( mOrbitObject )
 	{
-		mModel->SetPosition( mOrbiting->GetPosition() + D3DXVECTOR3(cos(mCumulativeTime * mOrbitSpeed)* mOrbitRadius, 0, sin(mCumulativeTime * mOrbitSpeed) * mOrbitRadius) );
+		D3DXVECTOR3 temp = D3DXVECTOR3(cos(mCumulativeTime * mOrbitSpeed)* mOrbitRadius, 0, sin(mCumulativeTime * mOrbitSpeed) * mOrbitRadius);
+		temp.x +=  mOrbiting->GetPosition().x;
+		temp.y +=  mOrbiting->GetPosition().y;
+		temp.z +=  mOrbiting->GetPosition().z;
+		mModel->SetPosition( temp );
 	}
 
 	if( mCycleColour )

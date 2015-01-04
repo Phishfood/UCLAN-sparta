@@ -1,32 +1,49 @@
-﻿Build started 16/11/2014 17:05:46.
+﻿Build started 04/01/2015 11:30:52.
      1>Project "C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Dissertation Project\Dissertation Project.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt MapSquare.cpp
-         MapSquare.cpp
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(43): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(45): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(64): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(66): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(80): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(82): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(96): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(98): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(116): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(118): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(129): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(131): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(374): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\mapsquare.cpp(293): warning C4715: 'MapSquare::FindPath' : not all control paths return a value
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Model.cpp
+         Model.cpp
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(111): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(117): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(122): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(143): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(150): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(157): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(161): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(189): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(382): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(385): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(388): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(391): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(394): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(397): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(409): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(412): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(415): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(418): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(421): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(424): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(470): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(477): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(481): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(485): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(492): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(503): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(506): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(519): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(533): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(536): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(539): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(542): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(545): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(556): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>c:\users\simon\documents\github\uclan-sparta\dissertation project\model.cpp(90): warning C4101: 'buffer' : unreferenced local variable
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Simon\Documents\Visual Studio 2012\Projects\Dissertation Project\Dissertation Project\Import" winmm.lib d3d10.lib d3dx10.lib d3dx9.lib dxguid.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.lib" /MACHINE:X86 Debug\AIInterface.obj
          Debug\AIRandom.obj
          Debug\Camera.obj
          Debug\Colours.obj
          Debug\CTimer.obj
-         Debug\Geometry.obj
-         Debug\GeometryManager.obj
-         Debug\ImportOBJ.obj
-         Debug\CImportXFile.obj
          Debug\CFatalException.obj
          Debug\MSDefines.obj
          Debug\Utility.obj
@@ -44,15 +61,14 @@
          Debug\Input.obj
          Debug\Light.obj
          Debug\MapSquare.obj
-         Debug\Model.obj
          Debug\RenderObject.obj
          Debug\Scene.obj
          Debug\Texture.obj
-         Debug\TextureManager.obj
          Debug\tinyxml2.obj
-         Dissertation Project.vcxproj -> C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.exe
-     1>Done Building Project "C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Dissertation Project\Dissertation Project.vcxproj" (Build target(s)).
+         Debug\Model.obj
+     1>LINK : fatal error LNK1201: error writing to program database 'C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Debug\Dissertation Project.pdb'; check for insufficient disk space, invalid path, or insufficient privilege
+     1>Done Building Project "C:\Users\Simon\Documents\GitHub\UCLAN-sparta\Dissertation Project\Dissertation Project.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:02.42
+Time Elapsed 00:00:04.58

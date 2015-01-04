@@ -15,7 +15,8 @@ public:
 private:
 	char sourceFile[100];
 
-	static ID3D10Device* mpd3dDev;
+	static ID3D11Device* mpd3dDev;
+	static ID3D11DeviceContext* mp_d3dDeviceContext;
 
 	float MoveSpeed;
 	float RotSpeed;
@@ -62,7 +63,7 @@ public:
 	bool CGeometry::Load( const string& fileName, ID3D10EffectTechnique* exampleTechnique, bool tangents = false );
 
 
-	static void SetDevice(ID3D10Device* newDevice) { mpd3dDev = newDevice; }
+	static void SetDevice(ID3D11Device* newDevice) { mpd3dDev = newDevice; }
 
 	// Release resources used by model
 	void ReleaseResources();
