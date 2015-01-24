@@ -1,0 +1,268 @@
+﻿Build started 22/01/2015 11:23:17.
+     1>Project "C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation 2.0\Tessellation_2012.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IEffects11\Inc /IHelpers /IImport /IImport\Common /IImport\Math /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0710 /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt AIInterface.cpp AIRandom.cpp Camera.cpp Colours.cpp CTimer.cpp Import\CImportXFile.cpp Import\Common\CFatalException.cpp Import\Common\MSDefines.cpp Import\Common\Utility.cpp Import\Math\BaseMath.cpp Import\Math\CMatrix2x2.cpp Import\Math\CMatrix3x3.cpp Import\Math\CMatrix4x4.cpp Import\Math\CQuaternion.cpp Import\Math\CQuatTransform.cpp Import\Math\CVector2.cpp Import\Math\CVector3.cpp Import\Math\CVector4.cpp Import\Math\MathIO.cpp Import\TinyXML\tinyxml2.cpp Input.cpp Light.cpp Main.cpp MapSquare.cpp Model.cpp RenderObject.cpp Scene.cpp SettingsManager.cpp TweakFunctions.cpp
+         AIInterface.cpp
+         AIRandom.cpp
+         Camera.cpp
+     1>Camera.cpp(52): warning C4101: 'tempVector' : unreferenced local variable
+         Colours.cpp
+         CTimer.cpp
+         CImportXFile.cpp
+         CFatalException.cpp
+         MSDefines.cpp
+         Utility.cpp
+         BaseMath.cpp
+         CMatrix2x2.cpp
+         CMatrix3x3.cpp
+         CMatrix4x4.cpp
+         CQuaternion.cpp
+         CQuatTransform.cpp
+         CVector2.cpp
+         CVector3.cpp
+         CVector4.cpp
+         MathIO.cpp
+         tinyxml2.cpp
+         Generating Code...
+         Compiling...
+         Input.cpp
+         Light.cpp
+         Main.cpp
+     1>Main.cpp(26): warning C4316: 'CScene' : object allocated on the heap may not be aligned 16
+         MapSquare.cpp
+     1>MapSquare.cpp(52): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(54): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(73): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(75): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(89): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(91): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(105): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(107): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(125): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(127): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(138): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(140): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(357): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(383): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(406): warning C4018: '<' : signed/unsigned mismatch
+     1>MapSquare.cpp(424): warning C4018: '<' : signed/unsigned mismatch
+         Model.cpp
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3dx9math.h(28): warning C4005: 'D3DX_PI' : macro redefinition
+                 c:\users\spneill\documents\visual studio 2013\projects\dissertation 2.0\Defines.h(91) : see previous definition of 'D3DX_PI'
+     1>Model.cpp(250): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(256): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(261): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(282): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(289): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(296): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(300): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(328): warning C4018: '<' : signed/unsigned mismatch
+     1>Model.cpp(521): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(524): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(527): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(530): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(533): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(536): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(548): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(551): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(554): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(557): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(560): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(563): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(609): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(616): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(620): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(624): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(631): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(642): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(645): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(658): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(672): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(675): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(678): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(681): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(684): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(695): warning C4244: '=' : conversion from 'unsigned short' to 'char', possible loss of data
+     1>Model.cpp(229): warning C4101: 'buffer' : unreferenced local variable
+         RenderObject.cpp
+     1>RenderObject.cpp(29): warning C4316: 'CModel' : object allocated on the heap may not be aligned 16
+         Scene.cpp
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(12): warning C4005: 'DXGI_STATUS_OCCLUDED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50092) : see previous definition of 'DXGI_STATUS_OCCLUDED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(13): warning C4005: 'DXGI_STATUS_CLIPPED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50101) : see previous definition of 'DXGI_STATUS_CLIPPED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(14): warning C4005: 'DXGI_STATUS_NO_REDIRECTION' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50110) : see previous definition of 'DXGI_STATUS_NO_REDIRECTION'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(15): warning C4005: 'DXGI_STATUS_NO_DESKTOP_ACCESS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50119) : see previous definition of 'DXGI_STATUS_NO_DESKTOP_ACCESS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(16): warning C4005: 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50128) : see previous definition of 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(17): warning C4005: 'DXGI_STATUS_MODE_CHANGED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50137) : see previous definition of 'DXGI_STATUS_MODE_CHANGED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(18): warning C4005: 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50146) : see previous definition of 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(21): warning C4005: 'DXGI_ERROR_INVALID_CALL' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50161) : see previous definition of 'DXGI_ERROR_INVALID_CALL'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(22): warning C4005: 'DXGI_ERROR_NOT_FOUND' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50170) : see previous definition of 'DXGI_ERROR_NOT_FOUND'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(23): warning C4005: 'DXGI_ERROR_MORE_DATA' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50179) : see previous definition of 'DXGI_ERROR_MORE_DATA'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(24): warning C4005: 'DXGI_ERROR_UNSUPPORTED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50188) : see previous definition of 'DXGI_ERROR_UNSUPPORTED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(25): warning C4005: 'DXGI_ERROR_DEVICE_REMOVED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50197) : see previous definition of 'DXGI_ERROR_DEVICE_REMOVED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(26): warning C4005: 'DXGI_ERROR_DEVICE_HUNG' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50206) : see previous definition of 'DXGI_ERROR_DEVICE_HUNG'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(27): warning C4005: 'DXGI_ERROR_DEVICE_RESET' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50216) : see previous definition of 'DXGI_ERROR_DEVICE_RESET'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(28): warning C4005: 'DXGI_ERROR_WAS_STILL_DRAWING' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50225) : see previous definition of 'DXGI_ERROR_WAS_STILL_DRAWING'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(29): warning C4005: 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50235) : see previous definition of 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(30): warning C4005: 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50244) : see previous definition of 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(31): warning C4005: 'DXGI_ERROR_DRIVER_INTERNAL_ERROR' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50254) : see previous definition of 'DXGI_ERROR_DRIVER_INTERNAL_ERROR'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(32): warning C4005: 'DXGI_ERROR_NONEXCLUSIVE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50263) : see previous definition of 'DXGI_ERROR_NONEXCLUSIVE'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(33): warning C4005: 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50272) : see previous definition of 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(34): warning C4005: 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50282) : see previous definition of 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(35): warning C4005: 'DXGI_ERROR_REMOTE_OUTOFMEMORY' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50291) : see previous definition of 'DXGI_ERROR_REMOTE_OUTOFMEMORY'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(917): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50469) : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(918): warning C4005: 'D3D11_ERROR_FILE_NOT_FOUND' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50478) : see previous definition of 'D3D11_ERROR_FILE_NOT_FOUND'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(919): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50488) : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(920): warning C4005: 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50497) : see previous definition of 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(608): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50445) : see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(609): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50454) : see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
+     1>Scene.cpp(41): warning C4316: 'CCamera' : object allocated on the heap may not be aligned 16
+     1>Scene.cpp(57): warning C4316: 'CModel' : object allocated on the heap may not be aligned 16
+     1>Scene.cpp(60): warning C4018: '<' : signed/unsigned mismatch
+     1>Scene.cpp(62): warning C4018: '<' : signed/unsigned mismatch
+     1>Scene.cpp(65): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Scene.cpp(714): warning C4244: '=' : conversion from 'int' to 'FLOAT', possible loss of data
+     1>Scene.cpp(715): warning C4244: '=' : conversion from 'int' to 'FLOAT', possible loss of data
+     1>Scene.cpp(649): warning C4101: 'fLevel' : unreferenced local variable
+         SettingsManager.cpp
+         TweakFunctions.cpp
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(12): warning C4005: 'DXGI_STATUS_OCCLUDED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50092) : see previous definition of 'DXGI_STATUS_OCCLUDED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(13): warning C4005: 'DXGI_STATUS_CLIPPED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50101) : see previous definition of 'DXGI_STATUS_CLIPPED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(14): warning C4005: 'DXGI_STATUS_NO_REDIRECTION' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50110) : see previous definition of 'DXGI_STATUS_NO_REDIRECTION'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(15): warning C4005: 'DXGI_STATUS_NO_DESKTOP_ACCESS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50119) : see previous definition of 'DXGI_STATUS_NO_DESKTOP_ACCESS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(16): warning C4005: 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50128) : see previous definition of 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(17): warning C4005: 'DXGI_STATUS_MODE_CHANGED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50137) : see previous definition of 'DXGI_STATUS_MODE_CHANGED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(18): warning C4005: 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50146) : see previous definition of 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(21): warning C4005: 'DXGI_ERROR_INVALID_CALL' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50161) : see previous definition of 'DXGI_ERROR_INVALID_CALL'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(22): warning C4005: 'DXGI_ERROR_NOT_FOUND' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50170) : see previous definition of 'DXGI_ERROR_NOT_FOUND'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(23): warning C4005: 'DXGI_ERROR_MORE_DATA' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50179) : see previous definition of 'DXGI_ERROR_MORE_DATA'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(24): warning C4005: 'DXGI_ERROR_UNSUPPORTED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50188) : see previous definition of 'DXGI_ERROR_UNSUPPORTED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(25): warning C4005: 'DXGI_ERROR_DEVICE_REMOVED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50197) : see previous definition of 'DXGI_ERROR_DEVICE_REMOVED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(26): warning C4005: 'DXGI_ERROR_DEVICE_HUNG' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50206) : see previous definition of 'DXGI_ERROR_DEVICE_HUNG'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(27): warning C4005: 'DXGI_ERROR_DEVICE_RESET' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50216) : see previous definition of 'DXGI_ERROR_DEVICE_RESET'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(28): warning C4005: 'DXGI_ERROR_WAS_STILL_DRAWING' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50225) : see previous definition of 'DXGI_ERROR_WAS_STILL_DRAWING'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(29): warning C4005: 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50235) : see previous definition of 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(30): warning C4005: 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50244) : see previous definition of 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(31): warning C4005: 'DXGI_ERROR_DRIVER_INTERNAL_ERROR' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50254) : see previous definition of 'DXGI_ERROR_DRIVER_INTERNAL_ERROR'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(32): warning C4005: 'DXGI_ERROR_NONEXCLUSIVE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50263) : see previous definition of 'DXGI_ERROR_NONEXCLUSIVE'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(33): warning C4005: 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50272) : see previous definition of 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(34): warning C4005: 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50282) : see previous definition of 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\dxgitype.h(35): warning C4005: 'DXGI_ERROR_REMOTE_OUTOFMEMORY' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50291) : see previous definition of 'DXGI_ERROR_REMOTE_OUTOFMEMORY'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(917): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50469) : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(918): warning C4005: 'D3D11_ERROR_FILE_NOT_FOUND' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50478) : see previous definition of 'D3D11_ERROR_FILE_NOT_FOUND'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(919): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50488) : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d11.h(920): warning C4005: 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50497) : see previous definition of 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(608): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50445) : see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+     1>c:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(609): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50454) : see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
+         Generating Code...
+     1>c:\users\spneill\documents\visual studio 2013\projects\dissertation 2.0\scene.cpp(845): warning C4715: 'CScene::LoadShaders' : not all control paths return a value
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /D _VC80_UPGRADE=0x0710 /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Release\Tessellation.res" Tessellation.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation 2.0\Release\Tessellation.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:Effects11\Release Effects11.lib d3d11.lib d3dcompiler.lib d3dx11.lib d3dx10.lib d3dx9.lib dxerr.lib dxguid.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST:NO /DEBUG /PDB:"C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation 2.0\Release\Tessellation.pdb" /SUBSYSTEM:WINDOWS /LARGEADDRESSAWARE /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation 2.0\Release\Tessellation.lib" /MACHINE:X86 /SAFESEH Release\Tessellation.res
+         Release\AIInterface.obj
+         Release\AIRandom.obj
+         Release\Camera.obj
+         Release\Colours.obj
+         Release\CTimer.obj
+         Release\CImportXFile.obj
+         Release\CFatalException.obj
+         Release\MSDefines.obj
+         Release\Utility.obj
+         Release\BaseMath.obj
+         Release\CMatrix2x2.obj
+         Release\CMatrix3x3.obj
+         Release\CMatrix4x4.obj
+         Release\CQuaternion.obj
+         Release\CQuatTransform.obj
+         Release\CVector2.obj
+         Release\CVector3.obj
+         Release\CVector4.obj
+         Release\MathIO.obj
+         Release\tinyxml2.obj
+         Release\Input.obj
+         Release\Light.obj
+         Release\Main.obj
+         Release\MapSquare.obj
+         Release\Model.obj
+         Release\RenderObject.obj
+         Release\Scene.obj
+         Release\SettingsManager.obj
+         Release\TweakFunctions.obj
+         Effects11.lib(EffectAPI.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+     1>Effects11.lib(EffectAPI.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Camera.obj
+     1>Effects11.lib(EffectAPI.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MTd_StaticDebug' doesn't match value 'MT_StaticRelease' in Camera.obj
+     1>Effects11.lib(EffectNonRuntime.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Camera.obj
+     1>Effects11.lib(EffectNonRuntime.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MTd_StaticDebug' doesn't match value 'MT_StaticRelease' in Camera.obj
+     1>Effects11.lib(EffectLoad.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Camera.obj
+     1>Effects11.lib(EffectLoad.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MTd_StaticDebug' doesn't match value 'MT_StaticRelease' in Camera.obj
+     1>Effects11.lib(d3dxGlobal.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Camera.obj
+     1>Effects11.lib(d3dxGlobal.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MTd_StaticDebug' doesn't match value 'MT_StaticRelease' in Camera.obj
+     1>Effects11.lib(d3dx11dbg.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Camera.obj
+     1>Effects11.lib(d3dx11dbg.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MTd_StaticDebug' doesn't match value 'MT_StaticRelease' in Camera.obj
+     1>Effects11.lib(EffectReflection.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Camera.obj
+     1>Effects11.lib(EffectReflection.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MTd_StaticDebug' doesn't match value 'MT_StaticRelease' in Camera.obj
+     1>Effects11.lib(EffectRuntime.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in Camera.obj
+     1>Effects11.lib(EffectRuntime.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MTd_StaticDebug' doesn't match value 'MT_StaticRelease' in Camera.obj
+     1>LINK : warning LNK4098: defaultlib 'LIBCMTD' conflicts with use of other libs; use /NODEFAULTLIB:library
+     1>C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation 2.0\Release\Tessellation.exe : fatal error LNK1319: 14 mismatches detected
+     1>Done Building Project "C:\Users\SPNeill\Documents\Visual Studio 2013\Projects\Dissertation 2.0\Tessellation_2012.vcxproj" (Rebuild target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:17.50
