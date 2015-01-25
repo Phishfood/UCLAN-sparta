@@ -108,6 +108,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalIncludeDirectories>Effects11\Inc;Helpers;Import;Import\Common;Import\Math</AdditionalIncludeDirectories>
+      <AssemblerOutput>NoListing</AssemblerOutput>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Effects11.lib;d3d11.lib;d3dcompiler.lib;d3dx11d.lib;d3dx10d.lib;d3dx9d.lib;dxerr.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
