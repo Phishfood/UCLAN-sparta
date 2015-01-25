@@ -18,6 +18,10 @@ MapSquare::MapSquare(std::string fileName, SettingsManager* settings)
 	mi_nodeCount = 0;
 	mi_splineCount = 0;
 
+	mi_heavyTurretCount = 0;
+	mi_mediumTurretCount = 0;
+	mi_lightTurretCount = 0;
+
 	ms_P1Start.x = -1;
 	ms_P1Start.y = -1;
 
@@ -31,6 +35,8 @@ MapSquare::MapSquare(std::string fileName, SettingsManager* settings)
 	FillBase2Influence( mySettings->baseRange, ms_P2Start.x, ms_P2Start.y );
 	//FillInfluenceRecurse2(BASE_OFFSET, mySettings->baseRange, ms_P1Start.x, ms_P1Start.y);
 	//FillInfluenceRecurse2(BASE2_OFFSET, mySettings->baseRange, ms_P2Start.x, ms_P2Start.y);
+
+	FindPath();
 
 	if(mb_writeXML)
 	{
@@ -257,7 +263,7 @@ bool MapSquare::LoadTextMap(std::string mapName)
 				mp_memNext->lightTurretInfluence = 0;
 				mp_memNext->mediumTurretInfluence = 0;
 				mp_memNext->wallInfluence = 0;
-				mp_memNext->pathInfluence = 0;
+				mp_memNext->pathInfluence = mp_memNext->cost;
 				mp_memNext->baseInfluence = 0;
 				mp_memNext->base2Influence = 0;
 
@@ -282,6 +288,8 @@ INT32 MapSquare::ManhattanDistance(INT32 x1, INT32 y1, INT32 x2, INT32 y2)
 //tries to generate a path between both player's bases
 bool MapSquare::FindPath()
 {
+	mi_nodeCount = 0;
+	mi_splineCount = 0;
 	Coords* current = new Coords();
 	current->x = ms_P1Start.x;
 	current->y = ms_P1Start.y;
@@ -324,6 +332,9 @@ bool MapSquare::FindPath()
 		mi_nodeCount++;
 		current = current->parent;
 	}
+	ms_path[mi_nodeCount] = (*current);
+	mi_nodeCount++;
+
 
 	for( uint32_t i = 0; i < mi_nodeCount; i ++ )
 	{
@@ -342,6 +353,12 @@ bool MapSquare::FindPath()
 
 		mi_splineCount+=3;
 	}
+
+	FindChoke();
+	FillHTIM();
+	FillMTIM();
+	FillLTIM();
+	FillPathIM();
 
 	return true;
 }
@@ -392,7 +409,7 @@ void MapSquare::GenerateOneNode( uint32_t x, uint32_t y, Coords* parent, std::ve
 	temp->x = x;
 	temp->y = y;
 	temp->cost = parent->cost + GetCost(x, y);
-	temp->score = abs(temp->x - ms_P2Start.x) + abs(temp->y - ms_P2Start.y) +temp->cost;
+	temp->score = abs(temp->x - ms_P2Start.x) + abs(temp->y - ms_P2Start.y) +temp->cost + GetWallI(temp->x, temp->y);
 	temp->parent = parent;
 	bool exists = CheckExists( open, temp ) || CheckExists( closed, temp );
 	if( !exists )
@@ -497,4 +514,211 @@ void MapSquare::QuarterSplines( Coords* point1, Coords* point2, Coords*  point3,
 	threeQuarter = new sCoords();
 	threeQuarter->x = float( point1->x ) * 0.015625f + float( point2->x ) * 0.140625f + float( point3->x ) * 0.421875f + float( point4->x ) * 0.421875f;
 	threeQuarter->y = float( point1->y ) * 0.015625f + float( point2->y ) * 0.140625f + float( point3->y ) * 0.421875f + float( point4->y ) * 0.421875f;
+}
+
+void MapSquare::FindChoke()
+{
+	uint32_t min = mySettings->MinPathLength; //minimum distance before placing turrets. 
+	uint32_t max = mi_nodeCount * mySettings->MaxPathLength; //maximum distance to find a choke point. 
+	
+	//set values where we start on the path.
+	Coords choke = ms_path[min];
+	uint32_t currentScore, lastScore = GetWallI(ms_path[min].x, ms_path[min].y);
+
+	min++;
+
+	for (uint32_t i = min; i < max; i++)
+	{
+		currentScore = GetWallI(ms_path[i].x, ms_path[i].y);
+		if (currentScore > lastScore)
+		{
+			lastScore = currentScore;
+			choke = ms_path[i];
+		}
+	}
+
+	ms_chokePoint = choke;
+
+}
+
+void MapSquare::FillHTIM()
+{
+	for (uint32_t y = 0; y < mi_mapHeight; y++)
+	{
+		for (uint32_t x = 0; x < mi_mapWidth; x++)
+		{
+			uint32_t dist = ManhattanDistance(x, y, ms_chokePoint.x, ms_chokePoint.y);
+			if (dist < mySettings->HTRange)
+			{
+				mv_nodes[x][y]->heavyTurretInfluence = mySettings->HTRange - dist;
+			}
+		}
+	}
+}
+
+void MapSquare::FillMTIM()
+{
+	for (uint32_t y = 0; y < mi_mapHeight; y++)
+	{
+		for (uint32_t x = 0; x < mi_mapWidth; x++)
+		{
+			uint32_t dist = ManhattanDistance(x, y, ms_chokePoint.x, ms_chokePoint.y);
+			if (dist < mySettings->MTRange)
+			{
+				mv_nodes[x][y]->mediumTurretInfluence = mySettings->MTRange - dist;
+			}
+		}
+	}
+}
+
+void MapSquare::FillLTIM()
+{
+	for (uint32_t y = 0; y < mi_mapHeight; y++)
+	{
+		for (uint32_t x = 0; x < mi_mapWidth; x++)
+		{
+			uint32_t dist = ManhattanDistance(x, y, ms_chokePoint.x, ms_chokePoint.y);
+			if (dist < mySettings->LTRange)
+			{
+				mv_nodes[x][y]->lightTurretInfluence = mySettings->LTRange - dist;
+			}
+		}
+	}
+}
+
+void MapSquare::FillPathIM()
+{
+	for (uint32_t y = 0; y < mi_mapHeight; y++)
+	{
+		for (uint32_t x = 0; x < mi_mapWidth; x++)
+		{
+			mv_nodes[x][y]->pathInfluence = mv_nodes[x][y]->cost;
+		}
+	}
+
+	for (uint32_t i = 0; i < mi_nodeCount; i++)
+	{
+		mv_nodes[ms_path[i].x][ms_path[i].y]->pathInfluence = 0;
+	}
+}
+
+void MapSquare::PlaceHeavyTurret()
+{
+	Coords best;
+	uint32_t bestScore = 9999999;
+	uint32_t currentScore = 0;
+
+	if (mi_heavyTurretCount >= MAX_TURRETS)
+	{
+		return;
+	}
+
+	for (uint32_t y = 0; y < mi_mapHeight; y++)
+	{
+		for (uint32_t x = 0; x < mi_mapWidth; x++)
+		{
+			if (mv_nodes[x][y]->heavyTurretInfluence == 1 && mv_nodes[x][y]->pathInfluence > 0)
+			{
+				currentScore = ManhattanDistance(ms_P1Start.x, ms_P1Start.y, x, y);
+			}
+			else
+			{
+				currentScore = 9999999;
+			}
+
+			if (currentScore < bestScore)
+			{
+				bestScore = currentScore;
+				best.x = x;
+				best.y = y;
+			}
+
+		}
+	}
+
+	ms_heavyTurrets[mi_heavyTurretCount] = best;
+	mi_heavyTurretCount++;
+
+	mv_nodes[best.x][best.y]->pathInfluence = 0;
+}
+
+void MapSquare::PlaceMediumTurret()
+{
+	Coords best;
+	uint32_t bestScore = 9999999;
+	uint32_t currentScore = 0;
+
+	if (mi_mediumTurretCount >= MAX_TURRETS)
+	{
+		return;
+	}
+
+	for (uint32_t y = 0; y < mi_mapHeight; y++)
+	{
+		for (uint32_t x = 0; x < mi_mapWidth; x++)
+		{
+			if (mv_nodes[x][y]->mediumTurretInfluence == 1 && mv_nodes[x][y]->pathInfluence > 0)
+			{
+				currentScore = ManhattanDistance(ms_P1Start.x, ms_P1Start.y, x, y);
+			}
+			else
+			{
+				currentScore = 9999999;
+			}
+
+			if (currentScore < bestScore)
+			{
+				bestScore = currentScore;
+				best.x = x;
+				best.y = y;
+			}
+
+		}
+	}
+
+	ms_mediumTurrets[mi_mediumTurretCount] = best;
+	mi_mediumTurretCount++;
+
+	mv_nodes[best.x][best.y]->pathInfluence = 0;
+}
+
+
+void MapSquare::PlaceLightTurret()
+{
+	Coords best;
+	uint32_t bestScore = 9999999;
+	uint32_t currentScore = 0;
+
+	if (mi_lightTurretCount >= MAX_TURRETS)
+	{
+		return;
+	}
+
+	for (uint32_t y = 0; y < mi_mapHeight; y++)
+	{
+		for (uint32_t x = 0; x < mi_mapWidth; x++)
+		{
+			if (mv_nodes[x][y]->lightTurretInfluence == 1 && mv_nodes[x][y]->pathInfluence > 0)
+			{
+				currentScore = ManhattanDistance(ms_P1Start.x, ms_P1Start.y, x, y);
+			}
+			else
+			{
+				currentScore = 9999999;
+			}
+
+			if (currentScore < bestScore)
+			{
+				bestScore = currentScore;
+				best.x = x;
+				best.y = y;
+			}
+
+		}
+	}
+
+	ms_lightTurrets[mi_lightTurretCount] = best;
+	mi_lightTurretCount++;
+
+	mv_nodes[best.x][best.y]->pathInfluence = 0;
 }

@@ -59,9 +59,13 @@ private:
 	ModelBatch mp_walls;
 	ModelBatch mp_pathModel;
 	ModelBatch mp_splineModel;
+	ModelBatch mp_heavyTurretModel;
+	ModelBatch mp_mediumTurretModel;
+	ModelBatch mp_lightTurretModel;
 
 	CRenderObject* mp_p1StartModel;
 	CRenderObject* mp_p2StartModel;
+	CRenderObject* mp_chokeModel;
 
 	ModelBatch* mp_path;
 
@@ -226,6 +230,7 @@ public:
 	void SetSelf(CScene* pointer){ mp_self = pointer; }
 	//void RenderMirrors();
 	bool InitWindow( HINSTANCE hInstance, int nCmdShow );
+	void VisualiseTurrets();
 
 };
 

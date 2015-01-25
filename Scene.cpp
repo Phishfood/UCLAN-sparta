@@ -72,7 +72,23 @@ bool CScene::InitScene()
 	mp_splineModel.SetColour(_ORANGE);
 	//mp_splineModel.mp_technique = mTechniques[0];
 
+	mp_chokeModel = new CRenderObject(
+		"Sphere.x",
+		DirectX::XMFLOAT3(mc_map->ms_chokePoint.x, 2.0f, mc_map->ms_chokePoint.y),
+		_RED,
+		mTechniques[0],
+		NULL
+		);
+	mp_chokeModel->GetModel()->SetScale(0.05f);
 
+	mp_heavyTurretModel.Load("Cube.x", mTechniques[0], false);
+	mp_heavyTurretModel.SetColour(_RED);
+
+	mp_mediumTurretModel.Load("Cube.x", mTechniques[0], false);
+	mp_mediumTurretModel.SetColour(_MRED);
+
+	mp_lightTurretModel.Load("Cube.x", mTechniques[0], false);
+	mp_lightTurretModel.SetColour(_LRED);
 
 	for( uint32_t y = 0; y < mi_mapHeight; y++ )
 	{
@@ -110,7 +126,8 @@ bool CScene::InitScene()
 
 	mpObjects[0] = mp_p1StartModel;
 	mpObjects[1] = mp_p2StartModel;
-	miNumObjects = 2;
+	mpObjects[2] = mp_chokeModel;
+	miNumObjects = 3;
 
 	  ///////////////////////////////////////
 	 // Text                              //
@@ -146,15 +163,15 @@ bool CScene::InitScene()
 	result = TwAddVarRW( mpSettingsBar, "ResolutionX", TW_TYPE_UINT32, &mySettings->resolutionX, "" );
 	TweakError( result )
 	result = TwAddVarRW( mpSettingsBar, "ResolutionY", TW_TYPE_UINT32, &mySettings->resolutionY, "" );
-	TweakError(result)
+	TweakError( result )
 	result = TwAddVarRW(mpSettingsBar, "Node Model", TW_TYPE_CHAR, &mySettings->nodeModel, "");
-	TweakError(result)
+	TweakError( result )
 	result = TwAddVarRW(mpSettingsBar, "Node Scale", TW_TYPE_FLOAT, &mySettings->nodeScale, "");
-	TweakError(result)
+	TweakError( result )
 	result = TwAddVarRW(mpSettingsBar, "Spline Model", TW_TYPE_CHAR, &mySettings->splineModel, "");
-	TweakError(result)
+	TweakError( result )
 	result = TwAddVarRW(mpSettingsBar, "Spline Scale", TW_TYPE_FLOAT, &mySettings->splineScale, "");
-	TweakError(result)
+	TweakError( result )
 	result = TwAddSeparator(mpSettingsBar, "AI - requires recalcualte", "");
 	TweakError( result )
 	result = TwAddVarRW( mpSettingsBar, "Wall Range", TW_TYPE_UINT32, &mySettings->wallRange, "" );
@@ -167,6 +184,12 @@ bool CScene::InitScene()
 	TweakError( result )
 	result = TwAddVarRW( mpSettingsBar, "Light Turret Range", TW_TYPE_UINT32, &mySettings->LTRange, "" );
 	TweakError( result )
+	result = TwAddVarRW(mpSettingsBar, "Minimum Path Length", TW_TYPE_UINT32, &mySettings->MinPathLength, "");
+	TweakError( result )
+	result = TwAddVarRW(mpSettingsBar, "Maximum Path Length", TW_TYPE_FLOAT, &mySettings->MaxPathLength, "min=0.1 max=0.9 step=0.1");
+	TweakError( result )
+	result = TwAddVarRW(mpSettingsBar, "ChokeThreshold", TW_TYPE_UINT32, &mySettings->ChokeThreshold, "");
+	TweakError( result )
 
 	mpCalculationsBar = TwNewBar("Calculations");
 	TwDefine( " Calculations position='205 5' " );
@@ -176,15 +199,27 @@ bool CScene::InitScene()
 	TweakError(result)
 	result = TwAddButton(mpCalculationsBar, "Visualise Path", TWVisualisePath, mp_self, "");
 	TweakError(result)
+	result = TwAddButton(mpCalculationsBar, "Place Heavy Turret", TwPlaceHeavyTurret, mc_map, "");
+	TweakError(result)
+	result = TwAddButton(mpCalculationsBar, "Place Medium Turret", TwPlaceMediumTurret, mc_map, "");
+	TweakError(result)
+	result = TwAddButton(mpCalculationsBar, "Place Light Turret", TwPlaceLightTurret, mc_map, "");
+	TweakError(result)
+	result = TwAddButton(mpCalculationsBar, "Visualise Turrets", TwVisualiseTurrets, mp_self, "");
+	TweakError(result)
 	result = TwAddVarRO(mpCalculationsBar, "Last Calculation Time", TW_TYPE_FLOAT, &mc_map->mf_calcTime, "");
-	TweakError( result )
+	TweakError(result)
+
 
 	mpFileBar = TwNewBar("Files");
 	TwDefine( " Files position='410 5' " );
 	result = TwAddButton(mpFileBar, "Reload Settings", ReloadSettings, mySettings, "");
 	TweakError( result )
 	result = TwAddButton( mpFileBar, "Write Settings", WriteSettings, mySettings, "" );
-	TweakError( result )
+	TweakError(result)
+	result = TwAddSeparator(mpFileBar, "Map", "");
+	TweakError(result)
+	result = TwAddButton(mpFileBar, "Write map XML", WriteMapXML, mc_map, "");
 	return true;
 }
 
@@ -453,6 +488,9 @@ void CScene::RenderScene()
 	mp_walls.RenderBatch( WorldMatrixVar, ModelColourVar );
 	mp_pathModel.RenderBatch(WorldMatrixVar, ModelColourVar);
 	mp_splineModel.RenderBatch(WorldMatrixVar, ModelColourVar);
+	mp_heavyTurretModel.RenderBatch(WorldMatrixVar, ModelColourVar);
+	mp_mediumTurretModel.RenderBatch(WorldMatrixVar, ModelColourVar);
+	mp_lightTurretModel.RenderBatch(WorldMatrixVar, ModelColourVar);
 
 	mpSpriteBatch->Begin();
 	//mpSpriteFont->DrawString( mpSpriteBatch, L"Hello, world!", DirectX::XMFLOAT2( 500.0f, 500.0f ) );
@@ -1050,6 +1088,8 @@ void CScene::VisualisePath()
 	mc_map->GetPathNodes(numNodes, nodes);
 	mc_map->GetPathSplines(numSplines, splines);
 
+	mp_pathModel.Reset();
+
 	for (uint32_t i = 0; i < numNodes; i++)
 	{
 		mp_pathModel.AddInstance(
@@ -1057,6 +1097,8 @@ void CScene::VisualisePath()
 			mySettings->nodeScale
 		);
 	}
+
+	mp_splineModel.Reset();
 
 	for (uint32_t i = 0; i < numSplines; i++)
 	{
@@ -1066,4 +1108,36 @@ void CScene::VisualisePath()
 		);
 	}
 	
+}
+
+void CScene::VisualiseTurrets()
+{
+	mp_heavyTurretModel.Reset();
+	
+	
+	for (uint32_t i = 0; i < mc_map->mi_heavyTurretCount; i++)
+	{
+		mp_heavyTurretModel.AddInstance(
+			DirectX::XMFLOAT3(mc_map->ms_heavyTurrets[i].x, 1.0f, mc_map->ms_heavyTurrets[i].y),
+			0.05f
+			);
+	}
+
+	mp_mediumTurretModel.Reset();
+
+	for (uint32_t i = 0; i < mc_map->mi_mediumTurretCount; i++)
+	{
+		mp_mediumTurretModel.AddInstance(DirectX::XMFLOAT3(mc_map->ms_mediumTurrets[i].x, 1.0f, mc_map->ms_mediumTurrets[i].y),
+			0.04f
+			);
+	}
+
+	mp_lightTurretModel.Reset();
+
+	for (uint32_t i = 0; i < mc_map->mi_lightTurretCount; i++)
+	{
+		mp_lightTurretModel.AddInstance(DirectX::XMFLOAT3(mc_map->ms_lightTurrets[i].x, 1.0f, mc_map->ms_lightTurrets[i].y),
+			0.03f
+			);
+	}
 }

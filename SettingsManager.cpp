@@ -35,11 +35,11 @@ bool SettingsManager::Load( wchar_t fileName[] )
 
 	count = GetPrivateProfileString(L"Graphics", L"NodeScale", NULL, buffer, BSIZE, fileName);
 	SCHECK( count );
-	nodeScale = static_cast<float>(_wtof(buffer));
+	nodeScale = static_cast<float>( _wtof(buffer) );
 
 	count = GetPrivateProfileString(L"Graphics", L"SplineScale", NULL, buffer, BSIZE, fileName);
 	SCHECK( count );
-	splineScale = static_cast<float>(_wtof(buffer));
+	splineScale = static_cast<float>( _wtof(buffer) );
 
 	  //////////////////////////////////////////
 	 // AI                                   //
@@ -69,6 +69,18 @@ bool SettingsManager::Load( wchar_t fileName[] )
 	SCHECK( count );
 	HTRange = _wtoi( buffer );
 
+	count = GetPrivateProfileString(L"AI", L"MinPathLength", NULL, buffer, BSIZE, fileName);
+	SCHECK(count);
+	MinPathLength = _wtoi(buffer);
+
+	count = GetPrivateProfileString(L"AI", L"MaxPathLength", NULL, buffer, BSIZE, fileName);
+	SCHECK(count);
+	MaxPathLength = static_cast<float>( _wtof(buffer) );
+
+	count = GetPrivateProfileString(L"AI", L"ChokeThreshold", NULL, buffer, BSIZE, fileName);
+	SCHECK(count);
+	ChokeThreshold = _wtoi(buffer);
+
 	return true;
 }
 
@@ -86,10 +98,10 @@ bool SettingsManager::Save( wchar_t fileName[] )
 	swprintf(buffer, BSIZE, L"%d", resolutionY);
 	WritePrivateProfileString( L"Graphics", L"Height", buffer, fileName );
 
-	swprintf(buffer, BSIZE, L"%d", nodeScale);
+	swprintf(buffer, BSIZE, L"%f", nodeScale);
 	WritePrivateProfileString(L"Graphics", L"NodeScale", buffer, fileName);
 
-	swprintf(buffer, BSIZE, L"%d", splineScale);
+	swprintf(buffer, BSIZE, L"%f", splineScale);
 	WritePrivateProfileString(L"Graphics", L"SplineScale", buffer, fileName);
 
 	WritePrivateProfileString(L"Graphics", L"NodeModel", nodeModel, fileName);
@@ -118,5 +130,10 @@ bool SettingsManager::Save( wchar_t fileName[] )
 	swprintf(buffer, BSIZE, L"%d", HTRange);
 	WritePrivateProfileString( L"AI", L"HTRange", buffer, fileName );
 
+	swprintf(buffer, BSIZE, L"%d", MinPathLength);
+	WritePrivateProfileString(L"AI", L"MinPathLength", buffer, fileName);
+
+	swprintf(buffer, BSIZE, L"%d", ChokeThreshold);
+	WritePrivateProfileString(L"AI", L"ChokeThreshold", buffer, fileName);
 	return true;
 }

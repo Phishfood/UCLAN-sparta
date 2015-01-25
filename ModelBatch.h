@@ -25,6 +25,8 @@ public:
 
 	void RenderBatch( ID3DX11EffectMatrixVariable* WorldMatrixPointer, ID3DX11EffectVectorVariable* ModelColourPointer );
 
+	void Reset(){ mi_count = 0; }
+
 	ModelBatch();
 	~ModelBatch();
 };

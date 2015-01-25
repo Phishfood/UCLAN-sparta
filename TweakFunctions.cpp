@@ -41,3 +41,51 @@ void TW_CALL TWVisualisePath(void* pointer)
 	CScene* scene = static_cast<CScene*>(pointer);
 	scene->VisualisePath();
 }
+
+void TW_CALL TwPlaceHeavyTurret(void* pointer)
+{
+	MapSquare* map = static_cast<MapSquare*>(pointer);
+	map->mp_timer->Reset();
+	map->mp_timer->Start();
+
+	map->PlaceHeavyTurret();
+
+	map->mf_calcTime = map->mp_timer->GetLapTime();
+	map->mp_timer->Stop();
+}
+
+void TW_CALL TwPlaceMediumTurret(void* pointer)
+{
+	MapSquare* map = static_cast<MapSquare*>(pointer);
+	map->mp_timer->Reset();
+	map->mp_timer->Start();
+
+	map->PlaceMediumTurret();
+
+	map->mf_calcTime = map->mp_timer->GetLapTime();
+	map->mp_timer->Stop();
+}
+
+void TW_CALL TwPlaceLightTurret(void* pointer)
+{
+	MapSquare* map = static_cast<MapSquare*>(pointer);
+	map->mp_timer->Reset();
+	map->mp_timer->Start();
+
+	map->PlaceLightTurret();
+
+	map->mf_calcTime = map->mp_timer->GetLapTime();
+	map->mp_timer->Stop();
+}
+
+void TW_CALL TwVisualiseTurrets(void* pointer)
+{
+	CScene* scene = static_cast<CScene*>(pointer);
+	scene->VisualiseTurrets();
+}
+
+void TW_CALL WriteMapXML(void* pointer)
+{
+	MapSquare* map = static_cast<MapSquare*>(pointer);
+	map->WriteMap("bob");
+}

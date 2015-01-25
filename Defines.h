@@ -78,6 +78,8 @@ const DirectX::XMFLOAT3 NO_ROTATION = DirectX::XMFLOAT3( 0.0f, 0.0f, 0.0f );
 const DirectX::XMFLOAT3 _BLACK = DirectX::XMFLOAT3( 0.0f, 0.0f, 0.0f );
 const DirectX::XMFLOAT3 _WHITE = DirectX::XMFLOAT3( 1.0f, 1.0f, 1.0f );
 const DirectX::XMFLOAT3 _RED = DirectX::XMFLOAT3( 0.8f, 0.0f, 0.0f );
+const DirectX::XMFLOAT3 _MRED = DirectX::XMFLOAT3( 0.8f, 0.3f, 0.3f);
+const DirectX::XMFLOAT3 _LRED = DirectX::XMFLOAT3( 0.8f, 0.6f, 0.6f);
 const DirectX::XMFLOAT3 _GREEN = DirectX::XMFLOAT3( 0.0f, 0.8f, 0.0f );
 const DirectX::XMFLOAT3 _ORANGE = DirectX::XMFLOAT3(1.0f, 0.5f, 0.1f);
 

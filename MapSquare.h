@@ -41,7 +41,7 @@ struct Coords
 {
 	int32_t x;
 	int32_t y;
-	int32_t score; //strictly for path finding
+	int32_t score; //for path finding
 	int32_t cost;
 	Coords* parent;
 };
@@ -52,6 +52,7 @@ struct sCoords
 	float y;
 };
 
+const uint32_t MAX_TURRETS = 20;
 
 class MapSquare
 {
@@ -59,11 +60,22 @@ public:   //variables
 	Coords ms_P1Start;
 	Coords ms_P2Start;
 
+	Coords ms_chokePoint;
+
 	Coords ms_path[MAX_MAP_SIZE*4]; // array of path co-ordinates with best guess at likely max size
 	uint32_t mi_nodeCount;
 
 	sCoords* ms_pathSplines[MAX_MAP_SIZE*16];
 	uint32_t mi_splineCount;
+
+	Coords ms_heavyTurrets[MAX_TURRETS];
+	uint32_t mi_heavyTurretCount;
+
+	Coords ms_lightTurrets[MAX_TURRETS];
+	uint32_t mi_lightTurretCount;
+
+	Coords ms_mediumTurrets[MAX_TURRETS];
+	uint32_t mi_mediumTurretCount;
 
 	SettingsManager* mySettings;
 
@@ -135,13 +147,17 @@ public: //methods
 
 	void GetPathSplines(uint32_t &numSplines, sCoords** &splines){ numSplines = mi_splineCount; splines = ms_pathSplines; }
 
+	void PlaceHeavyTurret();
+	void PlaceMediumTurret();
+	void PlaceLightTurret();
+
+	bool WriteMap(std::string fileName);
+
 	//INT32 GetCost(){ return cost;  }
 	//void SetCost(INT32 newCost){ cost = newCost; }
 	
 private: //methods
 	bool LoadMap(std::string fileName);
-
-	bool WriteMap(std::string fileName);
 
 	bool LoadXMLMap(std::string fileName);
 
@@ -164,5 +180,15 @@ private: //methods
 	void DisplayPath(Coords* start);
 	
 	void QuarterSplines( Coords* point1, Coords* point2, Coords*  point3, Coords*  point4, sCoords*  &quarter, sCoords*  &half, sCoords*  &threeQuarter );
+
+	void FindChoke();
+
+	void FillPathIM();
+
+	void FillHTIM();
+	void FillMTIM();
+	void FillLTIM();
+
+	
 };
 

@@ -14,7 +14,7 @@
 // DirectX Camera Class Defintition
 //-----------------------------------------------------------------------------
 
-class CCamera
+__declspec(align(16)) class CCamera
 {
 /////////////////////////////
 // Private member variables

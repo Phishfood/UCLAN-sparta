@@ -28,6 +28,9 @@ public:
 	uint32_t LTRange;
 	uint32_t MTRange;
 	uint32_t HTRange;
+	uint32_t MinPathLength;
+	float    MaxPathLength;
+	uint32_t ChokeThreshold;
 	
 private:
 public:
