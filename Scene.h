@@ -190,6 +190,10 @@ private:
 	
 	ID3D11ShaderResourceView* DepthShaderView;
 
+	FMOD::System* mp_fmodSystem;
+	FMOD::Sound* mp_bgSound;
+	FMOD::Channel* mp_channel;
+
 	// Variables used to setup the Window
 	HINSTANCE HInst;
 	HWND      HWnd;
@@ -213,7 +217,7 @@ private:
 
 	bool LoadTechnique();
 
-	//float* MatrixFix(DirectX::XMMATRIX input);
+
 
 public:
 	CScene(void);

@@ -95,10 +95,7 @@ void MapSquare::FillBaseInfluence( INT32 range, INT32 x, INT32 y )
 		{
 			// max alias decided to break horribly?
 			int dist = ManhattanDistance( j, i, x, y );
-			if( dist < range )
-			{
-				mv_nodes[j][i]->baseInfluence += range - dist;
-			}
+			mv_nodes[j][i]->baseInfluence = 0 - dist;
 		}
 	}
 }
@@ -111,10 +108,7 @@ void MapSquare::FillBase2Influence( INT32 range, INT32 x, INT32 y )
 		{
 			// max alias decided to break horribly?
 			int dist = ManhattanDistance( j, i, x, y );
-			if( dist < range )
-			{
-				mv_nodes[j][i]->base2Influence += range - dist;
-			}
+			mv_nodes[j][i]->base2Influence = 0 - dist;
 		}
 	}
 }
@@ -171,6 +165,8 @@ bool MapSquare::WriteMap(std::string fileName)
 	tinyxml2::XMLElement* nodeElement;
 
 	rootElement = xmlDoc.NewElement("map");
+	rootElement->SetAttribute("width", mi_mapWidth);
+	rootElement->SetAttribute("height", mi_mapHeight);
 
 	for (UINT32 y = 0; y < mi_mapHeight; y++)
 	{
@@ -204,8 +200,88 @@ bool MapSquare::WriteMap(std::string fileName)
 
 bool MapSquare::LoadXMLMap(std::string fileName)
 {
+	//return LoadTextMap(fileName);
 	//TODO - read the XML map for real.
-	return LoadTextMap(fileName);
+	tinyxml2::XMLDocument xmlDoc;
+	std::string fullName = fileName + ".xml";
+	if (xmlDoc.LoadFile(fullName.c_str()) != 0)
+	{
+		return false;
+	}
+
+	tinyxml2::XMLElement* rootElement = xmlDoc.FirstChildElement("map");
+
+	tinyxml2::XMLElement* rowElement = rootElement->FirstChildElement("row");
+
+	tinyxml2::XMLElement* nodeElement;// = rowElement->FirstChildElement("node");
+
+	const char* widthChar = rootElement->Attribute("width");
+	const char* heightChar = rootElement->Attribute("height");
+
+	mi_mapWidth = atoi(widthChar);
+	mi_mapHeight = atoi(heightChar);
+
+	// allocate enough memory to hold all the nodes
+	// this will crash and burn if the map isn't square/rectangular
+	mp_memStart = (MapData*)malloc(sizeof(MapData) * mi_mapHeight * mi_mapWidth);
+	mp_memNext = mp_memStart;
+
+	uint32_t x = 0, y = 0;
+
+	while (rowElement)
+	{
+		nodeElement = rowElement->FirstChildElement("node");
+		
+		while (nodeElement)
+		{
+			//read in attributes
+			const char* costChar = nodeElement->Attribute("cost");
+			const char* wallChar = nodeElement->Attribute("wallim");
+			const char* base1Char = nodeElement->Attribute("baseim");
+			const char* base2Char = nodeElement->Attribute("base2im");
+
+			//add pointer to the array
+			mv_nodes[y][x] = mp_memNext;
+
+			//convert attributes to ints
+			mp_memNext->cost = atoi(costChar);
+			mp_memNext->wallInfluence = atoi(wallChar);
+			mp_memNext->baseInfluence = atoi(base1Char);
+			mp_memNext->base2Influence = atoi(base2Char);
+
+			//catch the starting points
+			if (mp_memNext->cost == 2)
+			{
+				ms_P1Start.x = x;
+				ms_P1Start.y = y;
+			}
+
+			if (mp_memNext->cost == 3)
+			{
+				ms_P2Start.x = x;
+				ms_P2Start.y = y;
+			}
+
+			//initialise to 0 
+			mp_memNext->heavyTurretInfluence = 0;
+			mp_memNext->lightTurretInfluence = 0;
+			mp_memNext->mediumTurretInfluence = 0;
+			mp_memNext->pathInfluence = mp_memNext->cost;
+
+			mp_memNext++;
+
+			//get the next element - returns null if there are no more.
+			nodeElement = nodeElement->NextSiblingElement("node");
+			x++;
+		}
+		x = 0;
+		y++;
+		rowElement = rowElement->NextSiblingElement("row");
+		
+	}
+	mi_mapHeight--;
+	mi_mapWidth;
+	return true;
 }
 
 bool MapSquare::LoadTextMap(std::string mapName)
@@ -232,7 +308,7 @@ bool MapSquare::LoadTextMap(std::string mapName)
 		mi_mapWidth = buffer[0].length()-1;
 
 		// allocate enough memory to hold all the nodes
-		// this will crash and burn if the map isn't square.
+		// this will crash and burn if the map isn't square/rectangular
 		mp_memStart = (MapData*) malloc( sizeof(MapData) * mi_mapHeight * mi_mapWidth );
 		mp_memNext = mp_memStart;
 
@@ -548,10 +624,11 @@ void MapSquare::FillHTIM()
 		for (uint32_t x = 0; x < mi_mapWidth; x++)
 		{
 			uint32_t dist = ManhattanDistance(x, y, ms_chokePoint.x, ms_chokePoint.y);
-			if (dist < mySettings->HTRange)
-			{
-				mv_nodes[x][y]->heavyTurretInfluence = mySettings->HTRange - dist;
-			}
+			//if (dist < mySettings->HTRange)
+			//{
+			uint32_t a = mySettings->HTRange - dist;
+			mv_nodes[x][y]->heavyTurretInfluence = mySettings->HTRange - (a*a);
+			//}
 		}
 	}
 }
@@ -563,10 +640,8 @@ void MapSquare::FillMTIM()
 		for (uint32_t x = 0; x < mi_mapWidth; x++)
 		{
 			uint32_t dist = ManhattanDistance(x, y, ms_chokePoint.x, ms_chokePoint.y);
-			if (dist < mySettings->MTRange)
-			{
-				mv_nodes[x][y]->mediumTurretInfluence = mySettings->MTRange - dist;
-			}
+			uint32_t a = mySettings->MTRange - dist;
+			mv_nodes[x][y]->mediumTurretInfluence = mySettings->MTRange - (a*a);
 		}
 	}
 }
@@ -578,10 +653,8 @@ void MapSquare::FillLTIM()
 		for (uint32_t x = 0; x < mi_mapWidth; x++)
 		{
 			uint32_t dist = ManhattanDistance(x, y, ms_chokePoint.x, ms_chokePoint.y);
-			if (dist < mySettings->LTRange)
-			{
-				mv_nodes[x][y]->lightTurretInfluence = mySettings->LTRange - dist;
-			}
+			uint32_t a = mySettings->LTRange - dist;
+			mv_nodes[x][y]->lightTurretInfluence = mySettings->LTRange - (a*a);
 		}
 	}
 }
@@ -605,34 +678,28 @@ void MapSquare::FillPathIM()
 void MapSquare::PlaceHeavyTurret()
 {
 	Coords best;
-	uint32_t bestScore = 9999999;
-	uint32_t currentScore = 0;
+	int32_t bestScore = -9999999;
+	int32_t currentScore = -999999;
 
 	if (mi_heavyTurretCount >= MAX_TURRETS)
 	{
 		return;
 	}
 
-	for (uint32_t y = 0; y < mi_mapHeight; y++)
+	for (int32_t y = 0; y < mi_mapHeight; y++)
 	{
-		for (uint32_t x = 0; x < mi_mapWidth; x++)
+		for (int32_t x = 0; x < mi_mapWidth; x++)
 		{
-			if (mv_nodes[x][y]->heavyTurretInfluence == 1 && mv_nodes[x][y]->pathInfluence > 0)
+			if (mv_nodes[y][x]->pathInfluence == 1)
 			{
-				currentScore = ManhattanDistance(ms_P1Start.x, ms_P1Start.y, x, y);
+				currentScore = mv_nodes[y][x]->heavyTurretInfluence - abs(mv_nodes[y][x]->baseInfluence);
+				if (currentScore > bestScore)
+				{
+					bestScore = currentScore;
+					best.x = y;
+					best.y = x;
+				}
 			}
-			else
-			{
-				currentScore = 9999999;
-			}
-
-			if (currentScore < bestScore)
-			{
-				bestScore = currentScore;
-				best.x = x;
-				best.y = y;
-			}
-
 		}
 	}
 
@@ -641,12 +708,28 @@ void MapSquare::PlaceHeavyTurret()
 
 	mv_nodes[best.x][best.y]->pathInfluence = 0;
 }
+/*
+if (mv_nodes[x][y]->heavyTurretInfluence == 1 && mv_nodes[x][y]->pathInfluence > 0)
+{
+	currentScore = ManhattanDistance(ms_P1Start.x, ms_P1Start.y, x, y);
+}
+else
+{
+	currentScore = 9999999;
+}
 
+if (currentScore < bestScore)
+{
+	bestScore = currentScore;
+	best.x = x;
+	best.y = y;
+}
+*/
 void MapSquare::PlaceMediumTurret()
 {
 	Coords best;
-	uint32_t bestScore = 9999999;
-	uint32_t currentScore = 0;
+	uint32_t bestScore = -9999999;
+	uint32_t currentScore = -999999;
 
 	if (mi_mediumTurretCount >= MAX_TURRETS)
 	{
@@ -657,22 +740,16 @@ void MapSquare::PlaceMediumTurret()
 	{
 		for (uint32_t x = 0; x < mi_mapWidth; x++)
 		{
-			if (mv_nodes[x][y]->mediumTurretInfluence == 1 && mv_nodes[x][y]->pathInfluence > 0)
+			if (mv_nodes[y][x]->pathInfluence == 1)
 			{
-				currentScore = ManhattanDistance(ms_P1Start.x, ms_P1Start.y, x, y);
+				currentScore = mv_nodes[y][x]->mediumTurretInfluence - abs(mv_nodes[y][x]->baseInfluence);
+				if (currentScore > bestScore)
+				{
+					bestScore = currentScore;
+					best.x = y;
+					best.y = x;
+				}
 			}
-			else
-			{
-				currentScore = 9999999;
-			}
-
-			if (currentScore < bestScore)
-			{
-				bestScore = currentScore;
-				best.x = x;
-				best.y = y;
-			}
-
 		}
 	}
 
@@ -686,8 +763,8 @@ void MapSquare::PlaceMediumTurret()
 void MapSquare::PlaceLightTurret()
 {
 	Coords best;
-	uint32_t bestScore = 9999999;
-	uint32_t currentScore = 0;
+	uint32_t bestScore = -9999999;
+	uint32_t currentScore = -99999999;
 
 	if (mi_lightTurretCount >= MAX_TURRETS)
 	{
@@ -698,20 +775,15 @@ void MapSquare::PlaceLightTurret()
 	{
 		for (uint32_t x = 0; x < mi_mapWidth; x++)
 		{
-			if (mv_nodes[x][y]->lightTurretInfluence == 1 && mv_nodes[x][y]->pathInfluence > 0)
+			if (mv_nodes[y][x]->pathInfluence == 1)
 			{
-				currentScore = ManhattanDistance(ms_P1Start.x, ms_P1Start.y, x, y);
-			}
-			else
-			{
-				currentScore = 9999999;
-			}
-
-			if (currentScore < bestScore)
-			{
-				bestScore = currentScore;
-				best.x = x;
-				best.y = y;
+				currentScore = mv_nodes[y][x]->lightTurretInfluence - abs(mv_nodes[y][x]->baseInfluence);
+				if (currentScore > bestScore)
+				{
+					bestScore = currentScore;
+					best.x = y;
+					best.y = x;
+				}
 			}
 
 		}

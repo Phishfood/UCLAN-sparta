@@ -123,7 +123,8 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)$(ProjectName).fx" "$(TargetDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -316,6 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="bob.txt" />
+    <Text Include="joe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="bob.xml" />

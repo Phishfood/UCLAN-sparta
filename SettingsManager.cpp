@@ -81,6 +81,13 @@ bool SettingsManager::Load( wchar_t fileName[] )
 	SCHECK(count);
 	ChokeThreshold = _wtoi(buffer);
 
+	count = GetPrivateProfileString(L"Other", L"Map", NULL, mapTemp, FNAME_LENG, fileName);
+	SCHECK(count);
+	char ch[FNAME_LENG];
+	char DefChar = ' ';
+	WideCharToMultiByte(CP_ACP, 0, mapTemp, -1, ch, FNAME_LENG, &DefChar, NULL);
+	mapFile = std::string(ch);
+
 	return true;
 }
 

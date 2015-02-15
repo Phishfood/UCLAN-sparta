@@ -43,6 +43,11 @@
 #include "AntTweakBar\include\AntTweakBar.h"
 
 
+//FMOD
+
+#include "Import\fmod\fmod.hpp"
+#pragma comment(lib, ".\\Import\\fmod\\fmodexL_vc.lib")
+
 //guaranteed variable sizes. 
 #include <stdint.h>
 

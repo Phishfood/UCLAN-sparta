@@ -1,13 +1,8 @@
-﻿Build started 25/01/2015 12:46:52.
+﻿Build started 15/02/2015 22:29:15.
      1>Project "C:\Users\Simon\Documents\GitHub\Sparta2.0\UCLAN-sparta\Tessellation_2012.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IEffects11\Inc /IHelpers /IImport /IImport\Common /IImport\Math /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D DEBUG /D PROFILE /D _WINDOWS /D _VC80_UPGRADE=0x0710 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /FAs /Fa"Debug\\" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Scene.cpp
-         Scene.cpp
-     1>c:\users\simon\documents\github\sparta2.0\uclan-sparta\scene.cpp(77): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
-     1>c:\users\simon\documents\github\sparta2.0\uclan-sparta\scene.cpp(1054): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\simon\documents\github\sparta2.0\uclan-sparta\scene.cpp(1121): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
-     1>c:\users\simon\documents\github\sparta2.0\uclan-sparta\scene.cpp(1130): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
-     1>c:\users\simon\documents\github\sparta2.0\uclan-sparta\scene.cpp(1139): warning C4244: 'argument' : conversion from 'int32_t' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IEffects11\Inc /IHelpers /IImport /IImport\Common /IImport\Math /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D DEBUG /D PROFILE /D _WINDOWS /D _VC80_UPGRADE=0x0710 /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt SettingsManager.cpp
+         SettingsManager.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Simon\Documents\GitHub\Sparta2.0\UCLAN-sparta\Debug\Tessellation.exe" /INCREMENTAL /NOLOGO /LIBPATH:Effects11\Debug Effects11.lib d3d11.lib d3dcompiler.lib d3dx11d.lib d3dx10d.lib d3dx9d.lib dxerr.lib dxguid.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST:NO /DEBUG /PDB:"C:\Users\Simon\Documents\GitHub\Sparta2.0\UCLAN-sparta\Debug\Tessellation.pdb" /SUBSYSTEM:WINDOWS /LARGEADDRESSAWARE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\Simon\Documents\GitHub\Sparta2.0\UCLAN-sparta\Debug\Tessellation.lib" /MACHINE:X86 /SAFESEH:NO Debug\Tessellation.res
          Debug\AIInterface.obj
@@ -41,12 +36,8 @@
          Debug\SettingsManager.obj
          Debug\TweakFunctions.obj
          Tessellation_2012.vcxproj -> C:\Users\Simon\Documents\GitHub\Sparta2.0\UCLAN-sparta\Debug\Tessellation.exe
-       PostBuildEvent:
-         copy "C:\Users\Simon\Documents\GitHub\Sparta2.0\UCLAN-sparta\Tessellation.fx" "C:\Users\Simon\Documents\GitHub\Sparta2.0\UCLAN-sparta\Debug\"
-         :VCEnd
-                 1 file(s) copied.
      1>Done Building Project "C:\Users\Simon\Documents\GitHub\Sparta2.0\UCLAN-sparta\Tessellation_2012.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.58
+Time Elapsed 00:00:04.09

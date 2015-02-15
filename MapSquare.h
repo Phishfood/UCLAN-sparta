@@ -25,14 +25,14 @@
 
 struct MapData
 {
-	UINT32 cost;
-	UINT32 wallInfluence;
-	UINT32 pathInfluence;
-	UINT32 baseInfluence;
-	UINT32 base2Influence;
-	UINT32 lightTurretInfluence;
-	UINT32 mediumTurretInfluence;
-	UINT32 heavyTurretInfluence;
+	int32_t cost;
+	int32_t wallInfluence;
+	int32_t pathInfluence;
+	int32_t baseInfluence;
+	int32_t base2Influence;
+	int32_t lightTurretInfluence;
+	int32_t mediumTurretInfluence;
+	int32_t heavyTurretInfluence;
 
 };
 

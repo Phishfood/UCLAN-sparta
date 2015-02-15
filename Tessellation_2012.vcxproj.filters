@@ -178,9 +178,6 @@
     <Filter Include="Import\TinyXML">
       <UniqueIdentifier>{e9f8a0a4-467d-4a81-a926-60184f99db05}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics Assignment">
-      <UniqueIdentifier>{0e636271-e40a-4b3c-b63a-6adba65b9672}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Text Data">
       <UniqueIdentifier>{c834acb1-1d88-4226-b92d-875e7e8d0a57}</UniqueIdentifier>
     </Filter>
@@ -220,6 +217,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="bob.txt">
+      <Filter>Text Data</Filter>
+    </Text>
+    <Text Include="joe.txt">
       <Filter>Text Data</Filter>
     </Text>
   </ItemGroup>

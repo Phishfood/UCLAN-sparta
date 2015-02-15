@@ -48,7 +48,8 @@ bool CScene::InitScene()
 	//load all textures and maps
 	miNumMaps = 0;
 
-	mc_map = new MapSquare("bob", mySettings);
+	//Load map data
+	mc_map = new MapSquare(mySettings->mapFile, mySettings);
 
 	//caching these locally - does mean more coupling, but seems better than fetching an unchanging variable repeatedly.
 	mi_mapHeight = mc_map->GetHeight();
@@ -80,6 +81,66 @@ bool CScene::InitScene()
 		NULL
 		);
 	mp_chokeModel->GetModel()->SetScale(0.05f);
+
+	miNumLights = 0;
+	/*
+	//Light 1 - Orbit Light
+	CModel* temp = new CModel;
+	mpLights[miNumLights] = new CLight();
+	if (!temp->Load("Sphere.x", mTechniques[0])) return false;
+	mpLights[miNumLights]->SetModel(temp);
+	mpLights[miNumLights]->SetColour(1.0f, 0.0f, 0.7f);
+	mpLights[miNumLights]->GetModel()->SetPosition(DirectX::XMFLOAT3(30, 10, 0));
+	mpLights[miNumLights]->GetModel()->SetScale(0.1f);
+	mpLights[miNumLights]->SetBrightness(10.0f);
+	mpLights[miNumLights]->SetOrbit(DirectX::XMFLOAT3(0, 20, 0), 25.0f, 0.1f);
+	mpLights[miNumLights]->SetColourCycle(17.0f);
+
+	miNumLights++;
+
+
+	//Light 2 - Pulse Light
+	temp = new CModel;
+	mpLights[miNumLights] = new CLight();
+	if (!temp->Load("Sphere.x", mTechniques[0])) return false;
+	mpLights[miNumLights]->SetModel(temp);
+	mpLights[miNumLights]->SetColour(1.0f, 0.8f, 0.2f);
+	mpLights[miNumLights]->GetModel()->SetPosition(DirectX::XMFLOAT3(-20, 30, 50));
+	mpLights[miNumLights]->GetModel()->SetScale(0.2f);
+	mpLights[miNumLights]->GetModel()->UpdateMatrix();
+	mpLights[miNumLights]->SetBrightness(5.0f);
+	mpLights[miNumLights]->SetFade(2.0f);
+
+	miNumLights++;
+
+	//Light 3 - Disco Light
+
+	temp = new CModel;
+	mpLights[miNumLights] = new CLight();
+	if (!temp->Load("Sphere.x", mTechniques[0])) return false;
+	mpLights[miNumLights]->SetModel(temp);
+	mpLights[miNumLights]->SetColour(1.0f, 0.8f, 0.2f);
+	mpLights[miNumLights]->GetModel()->SetPosition(DirectX::XMFLOAT3(200, 25, 200));
+	mpLights[miNumLights]->GetModel()->SetScale(0.2f);
+	mpLights[miNumLights]->GetModel()->UpdateMatrix();
+	mpLights[miNumLights]->SetBrightness(5.0f);
+	mpLights[miNumLights]->SetDisco();
+
+	miNumLights++;
+
+	for (int i = 0; i < 10; i++)
+	{
+		temp = new CModel;
+		mpLights[miNumLights] = new CLight();
+		if (!temp->Load("Sphere.x", mTechniques[0])) return false;
+		mpLights[miNumLights]->SetModel(temp);
+		mpLights[miNumLights]->SetColour(i / 10.0f, i / 10.0f, 1.0f);
+		mpLights[miNumLights]->GetModel()->SetPosition(DirectX::XMFLOAT3(200, 10, i*30.0f));
+		mpLights[miNumLights]->GetModel()->SetScale(i / 10.0f);
+		mpLights[miNumLights]->GetModel()->UpdateMatrix();
+		miNumLights++;
+	}
+	*/
 
 	mp_heavyTurretModel.Load("Cube.x", mTechniques[0], false);
 	mp_heavyTurretModel.SetColour(_RED);
@@ -154,7 +215,7 @@ bool CScene::InitScene()
 	TweakError(result)
 	result = TwWindowSize(mySettings->resolutionX, mySettings->resolutionY);
 	TweakError( result )
-
+		
 		
 	mpSettingsBar = TwNewBar( "Settings" );
 	TwDefine(" Settings position='5 5' ");
@@ -220,6 +281,39 @@ bool CScene::InitScene()
 	result = TwAddSeparator(mpFileBar, "Map", "");
 	TweakError(result)
 	result = TwAddButton(mpFileBar, "Write map XML", WriteMapXML, mc_map, "");
+
+	  ///////////////////////////////////////
+	 // FMod                              //
+	///////////////////////////////////////
+
+	FMOD_RESULT fm_result;
+	
+	fm_result = FMOD::System_Create(&mp_fmodSystem);
+
+	if (fm_result != FMOD_OK)
+	{
+		MessageBox(NULL, L"Error creating FMOD system.", L"Error", MB_OK);
+		return false;
+	}
+
+	fm_result = mp_fmodSystem->init(10, FMOD_INIT_NORMAL, 0);
+
+	if (fm_result != FMOD_OK)
+	{
+		MessageBox(NULL, L"Error initialising FMOD system.", L"Error", MB_OK);
+		return false;
+	}
+
+	fm_result = mp_fmodSystem->createSound("bd.mp3", FMOD_DEFAULT, 0, &mp_bgSound);
+
+	if (fm_result != FMOD_OK)
+	{
+		MessageBox(NULL, L"Error loading background sound.", L"Error", MB_OK);
+		return false;
+	}
+
+	result = mp_fmodSystem->playSound(FMOD_CHANNEL_FREE, mp_bgSound, false, &mp_channel);
+
 	return true;
 }
 
@@ -402,10 +496,10 @@ void CScene::DrawObject(int i, bool mirror)
 	ModelColourVar->SetRawValue( (float*)&f3, 0, 12 );
 	
 	//if the object is lit, pass over the 12 closest lights. 
-	if( mpObjects[i]->IsLit() )
-	{
-		SetLights( mpObjects[i]->GetModel()->GetPosition(), mpLights, miNumLights);
-	}
+	//if( mpObjects[i]->IsLit() )
+	//{
+	//	SetLights( mpObjects[i]->GetModel()->GetPosition(), mpLights, miNumLights);
+	//}
 
 	// choose how to render the model based on where we are rendering it. 
 	mpObjects[i]->Render();
@@ -473,11 +567,14 @@ void CScene::RenderScene()
 
 	//pass the camera position
 	//V3 temp = XMF3ToFloat3( Camera->GetPosition() );
-	//dxCameraPos->SetRawValue( &temp, 0, 12);
+	//DirectX::XMFLOAT3 temp = Camera.GetPosition();
+	dxCameraPos->SetRawValue( &Camera.GetPosition(), 0, 12);
 
 	//pass the lighting colours
 	//temp = XMF3ToFloat3( AmbientColour );
-	//dxAmbientColour->SetRawValue( &temp, 0, 12  );
+	dxAmbientColour->SetRawValue( &AmbientColour, 0, 12  );
+
+	SetLights( DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f), mpLights, miNumLights);
 
 	//---------------------------
 	// Render each model
@@ -938,7 +1035,8 @@ bool CScene::LoadEffectFile()
 	// Regular techniques for the main scene
 	//mTechniques[0] = NULL;
 	mTechniques[ 0]	= Effect->GetTechniqueByName( "SingleColour" );
-	miNumTechniques = 5;
+	mTechniques[ 1] = Effect->GetTechniqueByName( "SingleColourLit" );
+	miNumTechniques = 2;
 	
 	// Create special variables to allow us to access global variables in the shaders from C++
 	WorldMatrixVar		= Effect->GetVariableByName( "WorldMatrix" )->AsMatrix();
@@ -951,22 +1049,22 @@ bool CScene::LoadEffectFile()
 	//NormalMapVar = Effect->GetVariableByName( "NormalMap" )->AsShaderResource();
 
 	//Camera Position
-	//dxCameraPos = Effect->GetVariableByName( "cameraPos" )->AsVector();
+	dxCameraPos = Effect->GetVariableByName( "cameraPos" )->AsVector();
 
 	// Other shader variables
 	ModelColourVar = Effect->GetVariableByName( "ModelColour"  )->AsVector();
 
 	//Lighting Values
-	//dxLightPosA = Effect->GetVariableByName( "lightPos" )->AsVector();
-	//dxLightColourA = Effect->GetVariableByName( "lightColour" )->AsVector();
+	dxLightPosA = Effect->GetVariableByName( "lightPos" )->AsVector();
+	dxLightColourA = Effect->GetVariableByName( "lightColour" )->AsVector();
 	//dxLightBrightnessA = Effect->GetVariableByName( "lightBright" )->AsVector();
 	
-	//dxAmbientColour = Effect->GetVariableByName( "ambientColour" )->AsVector();
+	dxAmbientColour = Effect->GetVariableByName( "ambientColour" )->AsVector();
 
 	//dxWiggle = Effect->GetVariableByName( "wiggle" )->AsScalar();
 	//dxOutlineThickness = Effect->GetVariableByName( "OutlineThickness" )->AsScalar();
 
-	//ClipPlaneVar      = Effect->GetVariableByName( "ClipPlane"      )->AsVector();
+	ClipPlaneVar      = Effect->GetVariableByName( "ClipPlane"      )->AsVector();
 
 	return true;
 }
@@ -1037,7 +1135,7 @@ void CScene::SetLights( DirectX::XMFLOAT3 source, CLight* lightsSource[MAX_LIGHT
 
 	dxLightPosA->SetRawValue( positions, 0, 16 * count );
 	dxLightColourA->SetRawValue( colours, 0, 16 * count );
-	dxLightBrightnessA->SetRawValue( bright, 0, 16 * count );
+	//dxLightBrightnessA->SetRawValue( bright, 0, 16 * count );
 }
 
 void CScene::DisplayText( char text[], UINT32 line )

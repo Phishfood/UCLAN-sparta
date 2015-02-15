@@ -21,6 +21,8 @@ public:
 	wchar_t splineModel[FNAME_LENG];
 	float splineScale;
 
+	wchar_t mapTemp[FNAME_LENG];
+
 	uint32_t maxMapSize;
 
 	uint32_t wallRange;
@@ -31,6 +33,7 @@ public:
 	uint32_t MinPathLength;
 	float    MaxPathLength;
 	uint32_t ChokeThreshold;
+	std::string mapFile;
 	
 private:
 public:

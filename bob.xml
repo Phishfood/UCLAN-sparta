@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map>
+<map width="31" height="32">
     <row>
         <node cost="0" wallim="25" baseim="11" base2im="0"/>
         <node cost="0" wallim="25" baseim="12" base2im="0"/>
